@@ -49,5 +49,6 @@ public class photonHand : MonoBehaviour {
     {
         PhotonNetwork.Instantiate(mainPlayer.name, mainPlayer.transform.position, mainPlayer.transform.rotation, 0);
         mainPlayer.tag = "jugador" + numJug;
+  
     }
 }

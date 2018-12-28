@@ -22,7 +22,6 @@ public class PlayerMov : Photon.MonoBehaviour {
                 gameObject.tag = "jugador2";
             }
         }
-
 	}
 	
 	void Update () {
@@ -45,7 +44,7 @@ public class PlayerMov : Photon.MonoBehaviour {
         straffe = Input.GetAxis("Oculus_CrossPlatform_PrimaryThumbstickVertical") * VelMov;
         translation *= Time.deltaTime;
         straffe *= Time.deltaTime;
-
+ 
         transform.Translate(straffe, 0, translation);
 
         if (Input.GetKeyDown("escape"))
@@ -67,7 +66,5 @@ public class PlayerMov : Photon.MonoBehaviour {
         else {
             selfPos = (Vector3)stream.ReceiveNext();
         }
-
     }
-
 }

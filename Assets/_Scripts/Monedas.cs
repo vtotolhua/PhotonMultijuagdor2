@@ -7,13 +7,22 @@ public class Monedas : MonoBehaviour {
     public static int NumMonedas;
     public static int MonedasP1 = 0;
     public static int MonedasP2 = 0;
+    private PhotonView PV;
+    
 
     // Use this for initialization
     void Start () {
         ++Monedas.NumMonedas;
         Debug.Log("numero de monedas " + NumMonedas);
+        PV = gameObject.GetPhotonView();
 	}
-	
+
+    private void Update()
+    {
+        transform.Rotate(Vector3.forward * 30 * Time.deltaTime );
+    }
+
+
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Colision con " + other.tag);

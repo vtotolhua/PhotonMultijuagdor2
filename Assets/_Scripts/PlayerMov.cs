@@ -18,6 +18,9 @@ public class PlayerMov : Photon.MonoBehaviour {
             sceneCam.SetActive(false);
             plCam.SetActive(true);
             Cursor.lockState = CursorLockMode.Locked;
+            if (GameObject.FindGameObjectWithTag("jugador1") != null) {
+                gameObject.tag = "jugador2";
+            }
         }
 
 	}

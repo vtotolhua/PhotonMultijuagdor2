@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - bala
+  - jugador1
+  - jugador2
   layers:
   - Default
   - TransparentFX

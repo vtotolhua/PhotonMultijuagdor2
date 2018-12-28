@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 114141043844792228}
   m_Layer: 0
   m_Name: PlayerCapsule Gun 1
-  m_TagString: Untagged
+  m_TagString: jugador1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1095,7 +1095,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnPoint: {fileID: 1108175289536848}
   Bala: {fileID: 1335475358980070, guid: cc3434bdae633ca42826ba85a710aa32, type: 2}
-  photonViewweapon: {fileID: 114932250997193172}
 --- !u!114 &114311017055766634
 MonoBehaviour:
   m_ObjectHideFlags: 1

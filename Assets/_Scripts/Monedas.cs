@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Monedas : MonoBehaviour {
+public class Monedas : Photon.MonoBehaviour {
 
     public static int NumMonedas;
     public static int MonedasP1 = 0;
     public static int MonedasP2 = 0;
     private PhotonView PV;
-    
+    private Vector3 Recibeposicion;
+    private Quaternion RecibeRotacion;
 
     // Use this for initialization
     void Start () {
@@ -19,7 +20,9 @@ public class Monedas : MonoBehaviour {
 
     private void Update()
     {
-        transform.Rotate(Vector3.forward * 30 * Time.deltaTime );
+        if (PV.isMine) {
+            transform.Rotate(Vector3.forward * 30 * Time.deltaTime);
+        }
     }
 
 
@@ -66,5 +69,23 @@ public class Monedas : MonoBehaviour {
             Debug.Log("Ganador es Jugador 2 ");
         }
     }
+
+    void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+        //poseemos el objeto mandamos la informacion a los demas juagdores.
+        if (stream.isWriting)
+        {
+            stream.SendNext(gameObject.transform.position);
+            stream.SendNext(gameObject.transform.rotation);
+        }
+        //si no poseemos el objeto, enviamos la posicion del objeto a los demas jugadores
+        else {
+            Recibeposicion = (Vector3)stream.ReceiveNext();
+            RecibeRotacion = (Quaternion)stream.ReceiveNext();
+
+        }
+
+
+    }
+
 
 }

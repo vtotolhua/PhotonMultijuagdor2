@@ -8,7 +8,8 @@ public class PlayerMov : Photon.MonoBehaviour {
     public PhotonView photonView;
     public float VelMov;
     private float translation, straffe, jumpforce;
-    private Vector3 selfPos;
+    private Vector3 RecibePosicion;
+    private Quaternion RecibeRotacion;
     private GameObject sceneCam;
     public GameObject plCam;
 
@@ -54,17 +55,19 @@ public class PlayerMov : Photon.MonoBehaviour {
     }
 
     private void smoothNetMovement() {
-        transform.position = Vector3.Lerp(transform.position, selfPos, Time.deltaTime * 8);
+        transform.position = Vector3.Lerp(transform.position, RecibePosicion, Time.deltaTime * 8);
     }
 
     private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.isWriting)
         {
-            stream.SendNext(transform.position);
+            stream.SendNext(gameObject.transform.position);
+            stream.SendNext(gameObject.transform.rotation);
         }
         else {
-            selfPos = (Vector3)stream.ReceiveNext();
+            RecibePosicion = (Vector3)stream.ReceiveNext();
+            RecibeRotacion = (Quaternion)stream.ReceiveNext();
         }
     }
 }

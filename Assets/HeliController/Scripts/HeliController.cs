@@ -53,42 +53,60 @@ public class HeliController : MonoBehaviour
         {
             if (MouseControl)
             {
-                if (Input.GetAxis("Mouse X") > 0 && Input.GetAxis("Mouse X") < 2)
-                    _input[0] = Input.GetAxis("Mouse X");
-                else if (Input.GetAxis("Mouse X") < 0 && Input.GetAxis("Mouse X") > -2)
-                    _input[1] = Mathf.Abs(Input.GetAxis("Mouse X"));
-                if (Input.GetAxis("Mouse X") == 0)
+                /* if (Input.GetAxis("Mouse X") > 0 && Input.GetAxis("Mouse X") < 2)
+                     _input[0] = Input.GetAxis("Mouse X");
+                 else if (Input.GetAxis("Mouse X") < 0 && Input.GetAxis("Mouse X") > -2)
+                     _input[1] = Mathf.Abs(Input.GetAxis("Mouse X"));
+                 if (Input.GetAxis("Mouse X") == 0)
+                 {
+                     _input[0] = 0;
+                     _input[1] = 0;
+                 }
+
+                 if (Input.GetAxis("Mouse Y") > 0 && Input.GetAxis("Mouse Y") < 2)
+                     _input[2] = Input.GetAxis("Mouse Y");
+                 else if (Input.GetAxis("Mouse Y") < 0 && Input.GetAxis("Mouse Y") > -2)
+                     _input[3] = Mathf.Abs(Input.GetAxis("Mouse Y"));
+                 if (Input.GetAxis("Mouse Y") == 0)
+                 {
+                     _input[2] = 0;
+                     _input[3] = 0;
+                 }*/
+                if (Input.GetAxisRaw("Oculus_CrossPlatform_SecondaryThumbstickHorizontal") > 0 && Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal") < 2)
+                    _input[0] = Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal");
+                else if (Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal") < 0 && Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal") > -2)
+                    _input[1] = Mathf.Abs(Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal"));
+                if (Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal") == 0)
                 {
                     _input[0] = 0;
                     _input[1] = 0;
                 }
 
-                if (Input.GetAxis("Mouse Y") > 0 && Input.GetAxis("Mouse Y") < 2)
-                    _input[2] = Input.GetAxis("Mouse Y");
-                else if (Input.GetAxis("Mouse Y") < 0 && Input.GetAxis("Mouse Y") > -2)
-                    _input[3] = Mathf.Abs(Input.GetAxis("Mouse Y"));
-                if (Input.GetAxis("Mouse Y") == 0)
+                if (Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickVertical") > 0 && Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickVertical") < 2)
+                    _input[2] = Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickVertical");
+                else if (Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickVertical") < 0 && Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickVertical") > -2)
+                    _input[3] = Mathf.Abs(Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickVertical"));
+                if (Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickVertical") == 0)
                 {
                     _input[2] = 0;
                     _input[3] = 0;
                 }
-                
             }
             else
             {
                 if (Input.GetKey(KeyCode.Keypad6) || Input.GetKey(KeyCode.L))
-                    _input[0] = 1;
+                     _input[0] = 1;
                 else _input[0] = 0;
 
-                if (Input.GetKey(KeyCode.Keypad4) || Input.GetKey(KeyCode.J))
+                if (Input.GetKey(KeyCode.Keypad4) || Input.GetKey(KeyCode.I))
                     _input[1] = 1;
                 else _input[1] = 0;
 
-                if (Input.GetKey(KeyCode.Keypad8) || Input.GetKey(KeyCode.I))
+                if (Input.GetKey(KeyCode.Keypad8) || Input.GetKey(KeyCode.K))
                     _input[2] = 1;
                 else _input[2] = 0;
 
-                if (Input.GetKey(KeyCode.Keypad2) || Input.GetKey(KeyCode.K))
+                if (Input.GetKey(KeyCode.Keypad2) || Input.GetKey(KeyCode.J))
                     _input[3] = 1;
                 else _input[3] = 0;
             }

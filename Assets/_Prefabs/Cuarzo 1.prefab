@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 65062370787254528}
   - component: {fileID: 114527305044682528}
   m_Layer: 0
-  m_Name: Cuarzo
+  m_Name: Cuarzo 1
   m_TagString: monedas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

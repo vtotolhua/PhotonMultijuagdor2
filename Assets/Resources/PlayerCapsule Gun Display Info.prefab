@@ -1736,7 +1736,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParticulasMuerte: {fileID: 0}
-  QuieresDestruiralMorir: 0
+  QuieresDestruiralMorir: 1
   _PuntosSalud: 100
 --- !u!114 &114679724119804282
 MonoBehaviour:

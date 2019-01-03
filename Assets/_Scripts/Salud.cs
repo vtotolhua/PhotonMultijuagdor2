@@ -25,7 +25,7 @@ public class Salud : MonoBehaviour {
 
             if (_PuntosSalud <= 0.0f)
             {
-                SendMessage("Morir", SendMessageOptions.DontRequireReceiver);
+                SendMessage("Destruye", SendMessageOptions.DontRequireReceiver);
 
                 if (ParticulasMuerte != null) Instantiate(ParticulasMuerte, ThisTransform.position, ThisTransform.rotation);
 

@@ -13,8 +13,8 @@ public class PlayerMov : Photon.MonoBehaviour {
     private Quaternion RecibeRotacion;
     private GameObject sceneCam;
     public GameObject plCam;
-    private Monedas mone;
-    private Text TotMonedas;
+    //private Monedas mone;
+    //private Text TotMonedas;
 
     private void Awake () {
         if (!devTesting && photonView.isMine) {
@@ -26,7 +26,7 @@ public class PlayerMov : Photon.MonoBehaviour {
                 gameObject.tag = "jugador2";
             }
         }
-        TotMonedas = GetComponentInChildren<Text>();
+        //TotMonedas = GetComponentInChildren<Text>();
     }
 	
 	void Update () {
@@ -49,12 +49,12 @@ public class PlayerMov : Photon.MonoBehaviour {
         if (other.GetComponent<Monedas>()) {
             Debug.Log("Choco con monedas");
             Debug.Log("Soy el jugador " + this.gameObject.tag);
-
-            mone = other.GetComponent<Monedas>();
+            
+            /*por revisar para mostrar el score en el GUI*/
+            /*mone = other.GetComponent<Monedas>();
             TotMonedas.text = mone.MonedasP1Text;
-            Debug.Log("total de monedas " + TotMonedas);
+            Debug.Log("total de monedas " + TotMonedas);*/
         }
-
 
       /*  if (other.CompareTag("monedas"))
         {

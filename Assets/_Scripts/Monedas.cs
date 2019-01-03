@@ -17,14 +17,16 @@ public class Monedas : Photon.MonoBehaviour {
     void Start () {
         ++Monedas.NumMonedas;
         Debug.Log("numero de monedas " + NumMonedas);
-        PV = gameObject.GetPhotonView();
+        PV = gameObject.GetComponent<PhotonView>();
 	}
 
     private void Update()
     {
-        if (PV.isMine) {
-            transform.Rotate(Vector3.forward * 30 * Time.deltaTime);
+        if (PV.isMine)
+        {
+            transform.Rotate(Vector3.forward * 20 * Time.deltaTime);
         }
+        //else smoothNetMovement();
     }
 
 
@@ -76,10 +78,10 @@ public class Monedas : Photon.MonoBehaviour {
         }
     }
 
-    private void smoothNetMovement()
+    /*private void smoothNetMovement()
     {
         transform.position = Vector3.Lerp(transform.position, Recibeposicion, Time.deltaTime * 8);
-    }
+    }*/
 
     void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
         //poseemos el objeto mandamos la informacion a los demas juagdores.
@@ -92,11 +94,6 @@ public class Monedas : Photon.MonoBehaviour {
         else {
             Recibeposicion = (Vector3)stream.ReceiveNext();
             RecibeRotacion = (Quaternion)stream.ReceiveNext();
-
         }
-
-
     }
-
-
 }

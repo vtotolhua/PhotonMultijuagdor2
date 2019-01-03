@@ -2,10 +2,11 @@
 
 public class Bala : Photon.MonoBehaviour {
     
-    public float FuerzaBala = 20;
+    public float FuerzaBala = 80;
     private Vector3 selfPos;
+    private Quaternion selfRot;
     public PhotonView photonViewBala;
-    public float dano = 10.0f;
+    public float PuntosDanio = 10.0f;
 
     private void Awake()
     {
@@ -26,18 +27,24 @@ public class Bala : Photon.MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        Target target = other.transform.GetComponent<Target>();
-        Rigidbody tempRigid = other.GetComponent<Rigidbody>();
+        Salud sal = other.gameObject.GetComponent<Salud>();
+        if (sal == null) return;
+        sal.PuntosSalud -= PuntosDanio;
+        Debug.Log(sal.PuntosSalud);
 
-        if (target != null)
-        {
-            target.impacto(dano);
-        }
+        /*    Target target = other.transform.GetComponent<Target>();
+            Rigidbody tempRigid = other.GetComponent<Rigidbody>();
 
-        if (tempRigid != null)
-        {
-            tempRigid.AddForce(-Vector3.forward* FuerzaBala, ForceMode.Acceleration);
-        }
+            if (target != null)
+            {
+                target.impacto(dano);
+            }
+
+            if (tempRigid != null)
+            {
+                tempRigid.AddForce(-Vector3.forward * FuerzaBala, ForceMode.Acceleration);
+            }
+        */
     }
 
     private void smoothNetMovement()
@@ -50,11 +57,12 @@ public class Bala : Photon.MonoBehaviour {
         if (stream.isWriting)
         {
             stream.SendNext(transform.position);
+            stream.SendNext(transform.rotation);
         }
         else
         {
             selfPos = (Vector3)stream.ReceiveNext();
+            selfRot = (Quaternion)stream.ReceiveNext();
         }
-
     }
 }

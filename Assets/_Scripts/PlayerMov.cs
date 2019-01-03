@@ -46,17 +46,17 @@ public class PlayerMov : Photon.MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        /*if (other.GetComponent<Monedas>()) {
-            mone = other.GetComponent<Monedas>();
-            TotMonedas.text = mone.MonedasP1Text;
-
+        if (other.GetComponent<Monedas>()) {
             Debug.Log("Choco con monedas");
             Debug.Log("Soy el jugador " + this.gameObject.tag);
+
+            mone = other.GetComponent<Monedas>();
+            TotMonedas.text = mone.MonedasP1Text;
             Debug.Log("total de monedas " + TotMonedas);
-        }*/
+        }
 
 
-        if (other.CompareTag("monedas"))
+      /*  if (other.CompareTag("monedas"))
         {
             Debug.Log("Choco con monedas");
             Debug.Log("Soy el jugador " + this.gameObject.tag);
@@ -77,7 +77,7 @@ public class PlayerMov : Photon.MonoBehaviour {
                 TotMonedas.text = mone.MonedasP2Text;
                 Debug.Log("Moenas " + TotMonedas.text);
             }
-        }
+        }*/
     }
 
     private void checkInput() {

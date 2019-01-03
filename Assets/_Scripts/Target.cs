@@ -8,6 +8,7 @@ public class Target : Photon.MonoBehaviour {
     private Vector3 posicionVe;
     public PhotonView PviewTarget;
     private Vector3 selfPos;
+
     /*private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("bala")) {

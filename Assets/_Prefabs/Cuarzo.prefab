@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114527305044682528}
   m_Layer: 0
   m_Name: Cuarzo
-  m_TagString: Untagged
+  m_TagString: monedas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,3 +108,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9d6683fa53ec4b4482f4251244aee40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MonedasP1Text: 
+  MonedasP2Text: 

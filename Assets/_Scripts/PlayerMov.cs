@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMov : Photon.MonoBehaviour {
 
@@ -12,6 +13,8 @@ public class PlayerMov : Photon.MonoBehaviour {
     private Quaternion RecibeRotacion;
     private GameObject sceneCam;
     public GameObject plCam;
+    private Monedas mone;
+    private Text TotMonedas;
 
     private void Awake () {
         if (!devTesting && photonView.isMine) {
@@ -23,7 +26,8 @@ public class PlayerMov : Photon.MonoBehaviour {
                 gameObject.tag = "jugador2";
             }
         }
-	}
+        TotMonedas = GetComponentInChildren<Text>();
+    }
 	
 	void Update () {
 
@@ -37,6 +41,42 @@ public class PlayerMov : Photon.MonoBehaviour {
         }
         else {
             checkInput();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        /*if (other.GetComponent<Monedas>()) {
+            mone = other.GetComponent<Monedas>();
+            TotMonedas.text = mone.MonedasP1Text;
+
+            Debug.Log("Choco con monedas");
+            Debug.Log("Soy el jugador " + this.gameObject.tag);
+            Debug.Log("total de monedas " + TotMonedas);
+        }*/
+
+
+        if (other.CompareTag("monedas"))
+        {
+            Debug.Log("Choco con monedas");
+            Debug.Log("Soy el jugador " + this.gameObject.tag);
+            mone = other.GetComponent<Monedas>();
+            TotMonedas.text = mone.MonedasP1Text;
+            Debug.Log("total de monedas " + TotMonedas.text);
+            
+
+
+            if (this.gameObject.tag == "jugador1")
+            {
+                TotMonedas.text = mone.MonedasP1Text;
+                Debug.Log("moenas " + TotMonedas.text);
+            }
+
+            if (gameObject.tag == "jugador2")
+            {
+                TotMonedas.text = mone.MonedasP2Text;
+                Debug.Log("Moenas " + TotMonedas.text);
+            }
         }
     }
 

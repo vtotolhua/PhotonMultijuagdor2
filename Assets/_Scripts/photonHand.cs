@@ -7,7 +7,7 @@ public class photonHand : MonoBehaviour {
 
     public PhotonButtons photonB;
     public GameObject mainPlayer;
-    private int numJug = 0;
+    //private int numJug = 0;
 
     private void Awake() {
         DontDestroyOnLoad(this.transform);
@@ -39,7 +39,7 @@ public class photonHand : MonoBehaviour {
     private void OnSceneFinishedLoading(Scene scene, LoadSceneMode mode) {
         if ( scene.name == "EscenaUno")
         {
-            numJug += 1;
+            //numJug += 1;
             SpawnPlayer();
              
         }
@@ -48,7 +48,6 @@ public class photonHand : MonoBehaviour {
     private void SpawnPlayer ()
     {
         PhotonNetwork.Instantiate(mainPlayer.name, mainPlayer.transform.position, mainPlayer.transform.rotation, 0);
-        mainPlayer.tag = "jugador" + numJug;
-  
+        //mainPlayer.tag = "jugador" + numJug;
     }
 }

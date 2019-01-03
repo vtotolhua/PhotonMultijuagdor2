@@ -7,6 +7,8 @@ public class Monedas : Photon.MonoBehaviour {
     public static int NumMonedas;
     public static int MonedasP1 = 0;
     public static int MonedasP2 = 0;
+    public string MonedasP1Text = "";
+    public string MonedasP2Text = "";
     private PhotonView PV;
     private Vector3 Recibeposicion;
     private Quaternion RecibeRotacion;
@@ -28,21 +30,25 @@ public class Monedas : Photon.MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Colision con " + other.tag);
+        //Debug.Log("Colision con " + other.tag);
 
         if (other.CompareTag("jugador1")) {
             MonedasP1++;
+            MonedasP1Text = MonedasP1.ToString();
+            //GameObject.FindGameObjectWithTag("jugador1").GetComponentInChildren<PlayerMov>().TotMonedas.text = MonedasP1Text;
             Destroy(gameObject);
-            Debug.Log("Monedas jugador 1 " + MonedasP1);
-            Debug.Log("numero de monedas" + NumMonedas);
+          //  Debug.Log("Monedas jugador 1 " + MonedasP1);
+          //  Debug.Log("numero de monedas" + NumMonedas);
         }
 
         if (other.CompareTag("jugador2"))
         {
             MonedasP2++;
+            MonedasP2Text = MonedasP2.ToString();
+            //GameObject.FindGameObjectWithTag("jugador2").GetComponentInChildren<PlayerMov>().TotMonedas.text = MonedasP2Text;
             Destroy(gameObject);
-            Debug.Log("Monedas jugador 2 " + MonedasP2);
-            Debug.Log("numero de monedas" + NumMonedas);
+           // Debug.Log("Monedas jugador 2 " + MonedasP2);
+           // Debug.Log("numero de monedas" + NumMonedas);
         }
     }
 
@@ -57,17 +63,22 @@ public class Monedas : Photon.MonoBehaviour {
 
     public void ComparPlayers() {
 
-        Debug.Log("Ganador es ");
-        Debug.Log("Monedas jugador 1 " + MonedasP1);
-        Debug.Log("Monedas jugador 2 " + MonedasP2);
+        //Debug.Log("Ganador es ");
+        //Debug.Log("Monedas jugador 1 " + MonedasP1);
+        //Debug.Log("Monedas jugador 2 " + MonedasP2);
         if (MonedasP1 > MonedasP2) {
-            Debug.Log("Ganador es Jugador 1 ");
+            //Debug.Log("Ganador es Jugador 1 ");
         }
 
         if (MonedasP1 < MonedasP2)
         {
-            Debug.Log("Ganador es Jugador 2 ");
+            //Debug.Log("Ganador es Jugador 2 ");
         }
+    }
+
+    private void smoothNetMovement()
+    {
+        transform.position = Vector3.Lerp(transform.position, Recibeposicion, Time.deltaTime * 8);
     }
 
     void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {

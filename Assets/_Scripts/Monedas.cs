@@ -16,7 +16,6 @@ public class Monedas : Photon.MonoBehaviour {
     // Use this for initialization
     void Start () {
         ++Monedas.NumMonedas;
-        Debug.Log("numero de monedas " + NumMonedas);
         PV = gameObject.GetComponent<PhotonView>();
 	}
 
@@ -35,22 +34,18 @@ public class Monedas : Photon.MonoBehaviour {
         //Debug.Log("Colision con " + other.tag);
 
         if (other.CompareTag("jugador1")) {
-            MonedasP1++;
+            MonedasP1 = MonedasP1 + 1;
+            Debug.Log("monedas P1 " + MonedasP1);
             MonedasP1Text = MonedasP1.ToString();
-            //GameObject.FindGameObjectWithTag("jugador1").GetComponentInChildren<PlayerMov>().TotMonedas.text = MonedasP1Text;
             Destroy(gameObject);
-          //  Debug.Log("Monedas jugador 1 " + MonedasP1);
-          //  Debug.Log("numero de monedas" + NumMonedas);
         }
 
         if (other.CompareTag("jugador2"))
         {
-            MonedasP2++;
+            MonedasP2 = MonedasP2 + 1;
+            Debug.Log("monedas P2 " + MonedasP2);
             MonedasP2Text = MonedasP2.ToString();
-            //GameObject.FindGameObjectWithTag("jugador2").GetComponentInChildren<PlayerMov>().TotMonedas.text = MonedasP2Text;
             Destroy(gameObject);
-           // Debug.Log("Monedas jugador 2 " + MonedasP2);
-           // Debug.Log("numero de monedas" + NumMonedas);
         }
     }
 
@@ -65,9 +60,6 @@ public class Monedas : Photon.MonoBehaviour {
 
     public void ComparPlayers() {
 
-        //Debug.Log("Ganador es ");
-        //Debug.Log("Monedas jugador 1 " + MonedasP1);
-        //Debug.Log("Monedas jugador 2 " + MonedasP2);
         if (MonedasP1 > MonedasP2) {
             //Debug.Log("Ganador es Jugador 1 ");
         }

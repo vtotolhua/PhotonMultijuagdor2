@@ -29,11 +29,17 @@ public class Bala : Photon.MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        Salud sal = other.gameObject.GetComponent<Salud>();
-        if (sal == null) return;
-        sal.PuntosSalud -= PuntosDanio;
-        Debug.Log(sal.PuntosSalud);
-        Destroy(gameObject);
+        if (other.GetComponent<Salud>()) {
+            Salud sal = other.gameObject.GetComponent<Salud>();
+            if (sal == null) return;
+            sal.PuntosSalud -= PuntosDanio;
+
+            Debug.Log(sal.PuntosSalud);
+            Destroy(gameObject);
+        }
+        
+
+
 
         //otra forma de contabilizar el daño //
         /*    Target target = other.transform.GetComponent<Target>();

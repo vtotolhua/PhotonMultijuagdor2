@@ -19,5 +19,4 @@ public class RecibeDanio : MonoBehaviour {
         if (sal == null) return;
         sal.PuntosSalud -= PuntosDanio;
     }
-
 }

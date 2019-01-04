@@ -13,6 +13,7 @@ public class PlayerMov : Photon.MonoBehaviour {
     private Quaternion RecibeRotacion;
     private GameObject sceneCam;
     public GameObject plCam;
+    
     //private Monedas mone;
     //private Text TotMonedas;
 
@@ -50,7 +51,7 @@ public class PlayerMov : Photon.MonoBehaviour {
             Debug.Log("Choco con monedas");
             Debug.Log("Soy el jugador " + this.gameObject.tag);
             
-            /*por revisar para mostrar el score en el GUI*/
+    /////////*por revisar para mostrar el score en el GUI*/////////////////////////////////
             /*mone = other.GetComponent<Monedas>();
             TotMonedas.text = mone.MonedasP1Text;
             Debug.Log("total de monedas " + TotMonedas);*/

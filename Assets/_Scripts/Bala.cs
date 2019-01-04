@@ -7,10 +7,12 @@ public class Bala : Photon.MonoBehaviour {
     private Quaternion selfRot;
     public PhotonView photonViewBala;
     public float PuntosDanio = 10.0f;
+    private ParticleSystem EfectoBala = null;
 
     private void Awake()
     {
         Destroy(gameObject, 3.0f);
+        EfectoBala = GetComponent<ParticleSystem>();
     }
 
     void Update()
@@ -31,7 +33,9 @@ public class Bala : Photon.MonoBehaviour {
         if (sal == null) return;
         sal.PuntosSalud -= PuntosDanio;
         Debug.Log(sal.PuntosSalud);
+        Destroy(gameObject);
 
+        //otra forma de contabilizar el daño //
         /*    Target target = other.transform.GetComponent<Target>();
             Rigidbody tempRigid = other.GetComponent<Rigidbody>();
 

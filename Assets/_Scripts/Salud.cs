@@ -6,8 +6,8 @@ public class Salud : MonoBehaviour {
     public GameObject ParticulasMuerte = null;
     private Transform ThisTransform = null;
     public bool QuieresDestruiralMorir = false;
-
-	// Use this for initialization
+    
+    // Use this for initialization
 	void Start () {
         ThisTransform = GetComponent<Transform>();
 	}
@@ -29,7 +29,12 @@ public class Salud : MonoBehaviour {
 
                 if (ParticulasMuerte != null) Instantiate(ParticulasMuerte, ThisTransform.position, ThisTransform.rotation);
 
-                if (QuieresDestruiralMorir) Destroy(gameObject);
+                if (QuieresDestruiralMorir) {
+                    if (this.gameObject.tag == "jugador1" || this.gameObject.tag == "jugador2") {
+                        this.gameObject.GetComponent<PlayerMov>().VelMov = 0;
+                    }
+                    else Destroy(gameObject);
+                } 
             }
         }      
     }

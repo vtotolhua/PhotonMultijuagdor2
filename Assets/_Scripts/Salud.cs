@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Salud : MonoBehaviour {
     public GameObject ParticulasMuerte = null;
     private Transform ThisTransform = null;
     public bool QuieresDestruiralMorir = false;
+    public TMP_Text salud;
+    public string SaludString = "";
     
     // Use this for initialization
 	void Start () {
@@ -22,6 +25,8 @@ public class Salud : MonoBehaviour {
         set
         {
             _PuntosSalud = value;
+            SaludString = PuntosSalud.ToString();
+            salud.text = SaludString;
 
             if (_PuntosSalud <= 0.0f)
             {
@@ -31,16 +36,12 @@ public class Salud : MonoBehaviour {
 
                 if (QuieresDestruiralMorir) {
                     if (this.gameObject.tag == "jugador1" || this.gameObject.tag == "jugador2") {
-                        this.gameObject.GetComponent<PlayerMov>().VelMov = 0;
+                        //this.gameObject.GetComponent<PlayerMov>().VelMov = 0;
                     }
                     else Destroy(gameObject);
                 } 
             }
         }      
-    }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space)) PuntosSalud = 0;
     }
 
     [SerializeField]

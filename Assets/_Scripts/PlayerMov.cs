@@ -13,8 +13,6 @@ public class PlayerMov : Photon.MonoBehaviour {
     private Quaternion RecibeRotacion;
     private GameObject sceneCam;
     public GameObject plCam;
-    private Monedas mone;
-    private Text TotMonedas;
 
     private void Awake () {
         if (!devTesting && photonView.isMine) {
@@ -26,7 +24,6 @@ public class PlayerMov : Photon.MonoBehaviour {
                 gameObject.tag = "jugador2";
             }
         }
-        TotMonedas = GetComponentInChildren<Text>();
     }
 	
 	void Update () {
@@ -43,42 +40,6 @@ public class PlayerMov : Photon.MonoBehaviour {
             checkInput();
         }
     }
-
-    /*private void OnTriggerEnter(Collider other)
-    {
-        if (other.GetComponent<Monedas>()) {
-            //Debug.Log("Choco con monedas");
-            //Debug.Log("Soy el jugador " + this.gameObject.tag);
-            
-    /////////*por revisar para mostrar el score en el GUI////////////////////////////////
-            mone = other.GetComponent<Monedas>();
-            TotMonedas.text = mone.MonedasP1Text;
-            Debug.Log("total de monedas " + TotMonedas);
-        }
-
-        if (other.CompareTag("monedas"))
-        {
-            Debug.Log("Choco con monedas");
-            Debug.Log("Soy el jugador " + this.gameObject.tag);
-            mone = other.GetComponent<Monedas>();
-            TotMonedas.text = mone.MonedasP1Text;
-            Debug.Log("total de monedas " + TotMonedas.text);
-            
-
-
-            if (this.gameObject.tag == "jugador1")
-            {
-                TotMonedas.text = mone.MonedasP1Text;
-                Debug.Log("moenas " + TotMonedas.text);
-            }
-
-            if (gameObject.tag == "jugador2")
-            {
-                TotMonedas.text = mone.MonedasP2Text;
-                Debug.Log("Moenas " + TotMonedas.text);
-            }
-        }
-    }*/
 
     private void checkInput() {
         translation = Input.GetAxis("Oculus_CrossPlatform_PrimaryThumbstickHorizontal") * VelMov;

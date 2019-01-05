@@ -28,14 +28,10 @@ public class Monedas : Photon.MonoBehaviour {
         //else smoothNetMovement();
     }
 
-
     private void OnTriggerEnter(Collider other)
     {
-        //Debug.Log("Colision con " + other.tag);
-
         if (other.CompareTag("jugador1")) {
             MonedasP1 = MonedasP1 + 1;
-            Debug.Log("monedas P1 " + MonedasP1);
             MonedasP1Text = MonedasP1.ToString();
             Destroy(gameObject);
         }
@@ -43,7 +39,6 @@ public class Monedas : Photon.MonoBehaviour {
         if (other.CompareTag("jugador2"))
         {
             MonedasP2 = MonedasP2 + 1;
-            Debug.Log("monedas P2 " + MonedasP2);
             MonedasP2Text = MonedasP2.ToString();
             Destroy(gameObject);
         }

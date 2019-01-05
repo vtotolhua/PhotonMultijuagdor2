@@ -61,7 +61,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 52990b8f3d88e124dbe93b83a73a66f8, type: 2}
+  - {fileID: 2100000, guid: 1ff54ee73aeb8494083c5bb4f0b7182b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -116,7 +116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FuerzaBala: 50
   photonViewBala: {fileID: 114516585735629162}
-  dano: 5
+  PuntosDanio: 10
 --- !u!114 &114516585735629162
 MonoBehaviour:
   m_ObjectHideFlags: 1

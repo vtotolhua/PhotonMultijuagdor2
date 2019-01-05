@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 114529243606341258}
   - component: {fileID: 114841105454300956}
   m_Layer: 0
-  m_Name: PlayerInfoCuarzoHealth5
+  m_Name: PlayerInfoCuarzoHealth4 1
   m_TagString: jugador1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

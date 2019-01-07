@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Desuso_Target : Photon.MonoBehaviour {
+public class Target : Photon.MonoBehaviour {
 
     public float Salud = 50.0f;
     private Vector3 posicionVe;

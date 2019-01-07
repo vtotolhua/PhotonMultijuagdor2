@@ -27,7 +27,8 @@ public class photonHand : MonoBehaviour {
     }
     
     public void moveScene() {
-        PhotonNetwork.LoadLevel("EscenaUno");
+        //PhotonNetwork.LoadLevel("EscenaUno");
+        PhotonNetwork.LoadLevel("Helicoptero");
     }
 
     private void OnJoinedRoom()
@@ -37,7 +38,7 @@ public class photonHand : MonoBehaviour {
     }
 
     private void OnSceneFinishedLoading(Scene scene, LoadSceneMode mode) {
-        if ( scene.name == "EscenaUno")
+        if ( scene.name == "Helicoptero")
         {
             //numJug += 1;
             SpawnPlayer();

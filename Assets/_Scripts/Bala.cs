@@ -29,7 +29,7 @@ public class Bala : Photon.MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Salud>() && !this.gameObject) {
+        if (other.GetComponent<Salud>()) {
             Salud sal = other.gameObject.GetComponent<Salud>();
             if (sal == null) return;
             sal.PuntosSalud -= PuntosDanio;

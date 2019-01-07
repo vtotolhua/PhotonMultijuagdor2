@@ -465,7 +465,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   photonB: {fileID: 351936328}
-  mainPlayer: {fileID: 1172975536124468, guid: 52a549cc18495a34d8af2b560de559ac, type: 2}
+  mainPlayer: {fileID: 1385003975566788, guid: 6bcecefea546f0b44b4d7d1c71b26fc3, type: 2}
 --- !u!4 &352958637
 Transform:
   m_ObjectHideFlags: 0
@@ -2860,7 +2860,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 169.27304, y: 56.181347}
   savedColor: {r: 1, g: 1, b: 1, a: 1}
-  savedTextUV0: {x: 0.1484375, y: 0}
+  savedTextUV0: {x: 0, y: 0.0078125}
   savedFill: 0
 --- !u!1 &1716334149
 GameObject:

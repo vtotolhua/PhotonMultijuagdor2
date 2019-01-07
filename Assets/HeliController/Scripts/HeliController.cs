@@ -3,6 +3,16 @@ using System.Collections;
 
 public class HeliController : MonoBehaviour
 {
+    //Variables de Photon para ser agredasa
+    public  PhotonView HelPV;
+    public bool HelDevTesting = false;
+    private Vector3 HelRecPos;
+    private Quaternion HelRecRot;
+    private GameObject SceneCamera;
+    public GameObject PlayerCamera;
+
+
+
     private GameObject _heliPivot;
 
     public bool EnableControls;
@@ -39,84 +49,172 @@ public class HeliController : MonoBehaviour
 
     void Awake()
     {
+        HelPV =  gameObject.GetComponent<PhotonView>();
         _heliPivot = transform.Find("HeliPivot").gameObject;
         _curAcceleration = Acceleration;
         _minAngle = 360 - MaxAngle;
-
         _rigidbody = GetComponent<Rigidbody>();
+
+        if (!HelDevTesting && HelPV.isMine)
+        {
+            //SceneCamera = GameObject.Find("Main Camera");
+            SceneCamera = GameObject.Find("Main Camera");
+            Debug.Log("camara principal " + SceneCamera.tag);
+            SceneCamera.SetActive(false);
+            Debug.Log("camara Player " + PlayerCamera.tag);
+            PlayerCamera.SetActive(true);
+        }
     }
 	
 	void Update()
 	{
-        #region Input
-        if (EnableControls)
+        if (!HelDevTesting)
         {
-            if (MouseControl)
+            if (HelPV.isMine)
             {
-                /* if (Input.GetAxis("Mouse X") > 0 && Input.GetAxis("Mouse X") < 2)
-                     _input[0] = Input.GetAxis("Mouse X");
-                 else if (Input.GetAxis("Mouse X") < 0 && Input.GetAxis("Mouse X") > -2)
-                     _input[1] = Mathf.Abs(Input.GetAxis("Mouse X"));
-                 if (Input.GetAxis("Mouse X") == 0)
-                 {
-                     _input[0] = 0;
-                     _input[1] = 0;
-                 }
-
-                 if (Input.GetAxis("Mouse Y") > 0 && Input.GetAxis("Mouse Y") < 2)
-                     _input[2] = Input.GetAxis("Mouse Y");
-                 else if (Input.GetAxis("Mouse Y") < 0 && Input.GetAxis("Mouse Y") > -2)
-                     _input[3] = Mathf.Abs(Input.GetAxis("Mouse Y"));
-                 if (Input.GetAxis("Mouse Y") == 0)
-                 {
-                     _input[2] = 0;
-                     _input[3] = 0;
-                 }*/
-                if (Input.GetAxisRaw("Oculus_CrossPlatform_SecondaryThumbstickHorizontal") > 0 && Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal") < 2)
-                    _input[0] = Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal");
-                else if (Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal") < 0 && Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal") > -2)
-                    _input[1] = Mathf.Abs(Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal"));
-                if (Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal") == 0)
+                #region Input
+                if (EnableControls)
                 {
-                    _input[0] = 0;
-                    _input[1] = 0;
+                    if (MouseControl)
+                    {
+                        /* if (Input.GetAxis("Mouse X") > 0 && Input.GetAxis("Mouse X") < 2)
+                             _input[0] = Input.GetAxis("Mouse X");
+                         else if (Input.GetAxis("Mouse X") < 0 && Input.GetAxis("Mouse X") > -2)
+                             _input[1] = Mathf.Abs(Input.GetAxis("Mouse X"));
+                         if (Input.GetAxis("Mouse X") == 0)
+                         {
+                             _input[0] = 0;
+                             _input[1] = 0;
+                         }
+
+                         if (Input.GetAxis("Mouse Y") > 0 && Input.GetAxis("Mouse Y") < 2)
+                             _input[2] = Input.GetAxis("Mouse Y");
+                         else if (Input.GetAxis("Mouse Y") < 0 && Input.GetAxis("Mouse Y") > -2)
+                             _input[3] = Mathf.Abs(Input.GetAxis("Mouse Y"));
+                         if (Input.GetAxis("Mouse Y") == 0)
+                         {
+                             _input[2] = 0;
+                             _input[3] = 0;
+                         }*/
+                        if (Input.GetAxisRaw("Oculus_CrossPlatform_SecondaryThumbstickHorizontal") > 0 && Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal") < 2)
+                            _input[0] = Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal");
+                        else if (Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal") < 0 && Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal") > -2)
+                            _input[1] = Mathf.Abs(Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal"));
+                        if (Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal") == 0)
+                        {
+                            _input[0] = 0;
+                            _input[1] = 0;
+                        }
+
+                        if (Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickVertical") > 0 && Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickVertical") < 2)
+                            _input[2] = Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickVertical");
+                        else if (Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickVertical") < 0 && Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickVertical") > -2)
+                            _input[3] = Mathf.Abs(Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickVertical"));
+                        if (Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickVertical") == 0)
+                        {
+                            _input[2] = 0;
+                            _input[3] = 0;
+                        }
+                    }
+                    else
+                    {
+                        if (Input.GetKey(KeyCode.Keypad6) || Input.GetKey(KeyCode.L))
+                            _input[0] = 1;
+                        else _input[0] = 0;
+
+                        if (Input.GetKey(KeyCode.Keypad4) || Input.GetKey(KeyCode.I))
+                            _input[1] = 1;
+                        else _input[1] = 0;
+
+                        if (Input.GetKey(KeyCode.Keypad8) || Input.GetKey(KeyCode.K))
+                            _input[2] = 1;
+                        else _input[2] = 0;
+
+                        if (Input.GetKey(KeyCode.Keypad2) || Input.GetKey(KeyCode.J))
+                            _input[3] = 1;
+                        else _input[3] = 0;
+                    }
+
+                    if (_input[0] > 0 || _input[1] > 0 || _input[2] > 0 || _input[3] > 0)
+                        _anyInput = true;
+                    else _anyInput = false;
                 }
 
-                if (Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickVertical") > 0 && Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickVertical") < 2)
-                    _input[2] = Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickVertical");
-                else if (Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickVertical") < 0 && Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickVertical") > -2)
-                    _input[3] = Mathf.Abs(Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickVertical"));
-                if (Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickVertical") == 0)
-                {
-                    _input[2] = 0;
-                    _input[3] = 0;
-                }
+                #endregion
             }
-            else
-            {
-                if (Input.GetKey(KeyCode.Keypad6) || Input.GetKey(KeyCode.L))
-                     _input[0] = 1;
-                else _input[0] = 0;
-
-                if (Input.GetKey(KeyCode.Keypad4) || Input.GetKey(KeyCode.I))
-                    _input[1] = 1;
-                else _input[1] = 0;
-
-                if (Input.GetKey(KeyCode.Keypad8) || Input.GetKey(KeyCode.K))
-                    _input[2] = 1;
-                else _input[2] = 0;
-
-                if (Input.GetKey(KeyCode.Keypad2) || Input.GetKey(KeyCode.J))
-                    _input[3] = 1;
-                else _input[3] = 0;
-            }
-
-            if (_input[0] > 0 || _input[1] > 0 || _input[2] > 0 || _input[3] > 0)
-                _anyInput = true;
-            else _anyInput = false;
+            else smoothNetMovement();
         }
-	    
-        #endregion
+        else {
+            #region Input
+            if (EnableControls)
+            {
+                if (MouseControl)
+                {
+                    /* if (Input.GetAxis("Mouse X") > 0 && Input.GetAxis("Mouse X") < 2)
+                         _input[0] = Input.GetAxis("Mouse X");
+                     else if (Input.GetAxis("Mouse X") < 0 && Input.GetAxis("Mouse X") > -2)
+                         _input[1] = Mathf.Abs(Input.GetAxis("Mouse X"));
+                     if (Input.GetAxis("Mouse X") == 0)
+                     {
+                         _input[0] = 0;
+                         _input[1] = 0;
+                     }
+
+                     if (Input.GetAxis("Mouse Y") > 0 && Input.GetAxis("Mouse Y") < 2)
+                         _input[2] = Input.GetAxis("Mouse Y");
+                     else if (Input.GetAxis("Mouse Y") < 0 && Input.GetAxis("Mouse Y") > -2)
+                         _input[3] = Mathf.Abs(Input.GetAxis("Mouse Y"));
+                     if (Input.GetAxis("Mouse Y") == 0)
+                     {
+                         _input[2] = 0;
+                         _input[3] = 0;
+                     }*/
+                    if (Input.GetAxisRaw("Oculus_CrossPlatform_SecondaryThumbstickHorizontal") > 0 && Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal") < 2)
+                        _input[0] = Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal");
+                    else if (Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal") < 0 && Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal") > -2)
+                        _input[1] = Mathf.Abs(Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal"));
+                    if (Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal") == 0)
+                    {
+                        _input[0] = 0;
+                        _input[1] = 0;
+                    }
+
+                    if (Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickVertical") > 0 && Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickVertical") < 2)
+                        _input[2] = Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickVertical");
+                    else if (Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickVertical") < 0 && Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickVertical") > -2)
+                        _input[3] = Mathf.Abs(Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickVertical"));
+                    if (Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickVertical") == 0)
+                    {
+                        _input[2] = 0;
+                        _input[3] = 0;
+                    }
+                }
+                else
+                {
+                    if (Input.GetKey(KeyCode.Keypad6) || Input.GetKey(KeyCode.L))
+                        _input[0] = 1;
+                    else _input[0] = 0;
+
+                    if (Input.GetKey(KeyCode.Keypad4) || Input.GetKey(KeyCode.I))
+                        _input[1] = 1;
+                    else _input[1] = 0;
+
+                    if (Input.GetKey(KeyCode.Keypad8) || Input.GetKey(KeyCode.K))
+                        _input[2] = 1;
+                    else _input[2] = 0;
+
+                    if (Input.GetKey(KeyCode.Keypad2) || Input.GetKey(KeyCode.J))
+                        _input[3] = 1;
+                    else _input[3] = 0;
+                }
+
+                if (_input[0] > 0 || _input[1] > 0 || _input[2] > 0 || _input[3] > 0)
+                    _anyInput = true;
+                else _anyInput = false;
+            }
+
+            #endregion
+        }
     }
 
     private float _angVelocityBoost;
@@ -302,5 +400,22 @@ public class HeliController : MonoBehaviour
         return CurEngineForce/MaxEngineForce;
     }
 
+    private void smoothNetMovement()
+    {
+        transform.position = Vector3.Lerp(transform.position, HelRecPos, Time.deltaTime * 8);
+    }
+
+    private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+        if (stream.isWriting)
+        {
+            stream.SendNext(gameObject.transform.position);
+            stream.SendNext(gameObject.transform.rotation);
+        }
+        else
+        {
+            HelRecPos = (Vector3)stream.ReceiveNext();
+            HelRecRot = (Quaternion)stream.ReceiveNext();
+        }
+    }
 
 }

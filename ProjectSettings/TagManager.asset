@@ -8,6 +8,7 @@ TagManager:
   - jugador1
   - jugador2
   - monedas
+  - PlayervCamara
   layers:
   - Default
   - TransparentFX

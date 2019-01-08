@@ -468,7 +468,7 @@ MonoBehaviour:
   photonB: {fileID: 351936328}
   mainPlayer:
   - {fileID: 1261901941417604, guid: 6d36c542f048ae245b911b84256787e9, type: 2}
-  - {fileID: 1667034348217144, guid: 090f9065f8210454ea5c8bcdbe74406a, type: 2}
+  - {fileID: 0}
 --- !u!4 &352958637
 Transform:
   m_ObjectHideFlags: 0

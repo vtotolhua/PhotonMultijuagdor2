@@ -10,34 +10,43 @@ public class CuentaMonedas : MonoBehaviour {
     public TMP_Text NumCuarzosP1;
     public TMP_Text NumCuarzosP2;
     public TMP_Text TotCuarzos;
-    private Monedas Mone;
-    private PhotonView PhotonGUI;
+    public TMP_Text TagPlayer;
+    
+    /*private PhotonView PhotonGUI;
     private Vector3 PosGui;
-    private Quaternion RotGui;
+    private Quaternion RotGui;*/
 
 
     // Use this for initialization
     private void Awake()
     {
-        PhotonGUI = GetComponent<PhotonView>();
+        //PhotonGUI = GetComponent<PhotonView>();
+        Debug.Log("CM Tag Player " + TagPlayer.ToString());
+        TagPlayer.text = gameObject.tag.ToString();
+        
         TotCuarzos.text = Monedas.NumMonedas.ToString();
         NumCuarzosP1.text = Monedas.MonedasP1.ToString();
         NumCuarzosP2.text = Monedas.MonedasP2.ToString();
+
     }
 
     private void Update()
     {
-        if (PhotonGUI.isMine)
+        NumCuarzosP1.text = Monedas.MonedasP1.ToString();
+        NumCuarzosP2.text = Monedas.MonedasP2.ToString();
+        TotCuarzos.text = Monedas.NumMonedas.ToString();
+
+        /*if (PhotonGUI.isMine)
         {
             NumCuarzosP1.text = Monedas.MonedasP1.ToString();
             NumCuarzosP2.text = Monedas.MonedasP2.ToString();
             TotCuarzos.text = Monedas.NumMonedas.ToString();
         }
-        else SmoothMovement();
+        else SmoothMovement();*/
 
     }
 
-    void SmoothMovement()
+    /*void SmoothMovement()
     {
         transform.position = Vector3.Lerp(transform.position, PosGui, Time.deltaTime * 8);
     }
@@ -54,5 +63,5 @@ public class CuentaMonedas : MonoBehaviour {
             PosGui = (Vector3)stream.ReceiveNext();
             RotGui = (Quaternion)stream.ReceiveNext(); 
         }
-    }
+    }*/
 }

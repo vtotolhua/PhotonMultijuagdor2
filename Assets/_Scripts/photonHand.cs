@@ -57,13 +57,23 @@ public class photonHand : MonoBehaviour {
 
     private void SpawnPlayer ()
     {
-        PhotonNetwork.Instantiate(player.name, player.transform.position, player.transform.rotation, 0);
-        if (PhotonNetwork.playerList.Length == 0) {
+        Debug.Log("Num Jugadores " + PhotonNetwork.playerList.Length);
+
+        if (PhotonNetwork.playerList.Length == 0)
+        {
+            PhotonNetwork.Instantiate(player.name, player.transform.position, player.transform.rotation, 0);
+            PhotonNetwork.playerName = "jugador1";
             player.tag = "jugador1";
+            Debug.Log("Nom Jugador " + PhotonNetwork.playerName);
+            Debug.Log("Tag Jugador " + player.tag);
         }
         if (PhotonNetwork.playerList.Length == 1)
         {
-            player.tag = "jugador1";
+            PhotonNetwork.Instantiate(player.name, player.transform.position, player.transform.rotation, 0);
+            PhotonNetwork.playerName = "jugador2";
+            player.tag = "jugador2";
+            Debug.Log("Nom Jugador " + PhotonNetwork.playerName);
+            Debug.Log("Tag Jugador " + player.tag);
         }
     }
 

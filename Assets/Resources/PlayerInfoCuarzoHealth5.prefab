@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 114526981235113844}
   m_Layer: 0
   m_Name: PlayerInfoCuarzoHealth5
-  m_TagString: jugador1
+  m_TagString: jugador2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2436,6 +2436,7 @@ MonoBehaviour:
   NumCuarzosP1: {fileID: 114922721447081926}
   NumCuarzosP2: {fileID: 114383708681278640}
   TotCuarzos: {fileID: 114080397645205770}
+  TagPlayer: {fileID: 0}
 --- !u!114 &114571326284484334
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -10,29 +10,23 @@ public class CuentaMonedas : MonoBehaviour {
     public TMP_Text NumCuarzosP1;
     public TMP_Text NumCuarzosP2;
     public TMP_Text TotCuarzos;
-    
+    private float CheckMonedas = 0.5f;
+    private Monedas Mone;
+
+
     // Use this for initialization
-    void Start () {
-        //NumCuarzos = GetComponentInChildren<TMP_Text>();
-	}
-
-    private void OnTriggerEnter(Collider other)
+    private void Awake()
     {
-        if (other.GetComponent<Monedas>()) {
-            Monedas mone = other.GetComponent<Monedas>();
-            NumCuarzosP1.text = mone.MonedasP1Text;
-            NumCuarzosP2.text = mone.MonedasP2Text;
-            TotCuarzos.text = Monedas.NumMonedas.ToString();
-            /*
-            if (this.gameObject.CompareTag("jugador1"))
-            {
-                NumCuarzos.text = mone.MonedasP1Text;
-            }
+        TotCuarzos.text = Monedas.NumMonedas.ToString();
+        NumCuarzosP1.text = Monedas.MonedasP1.ToString();
+        NumCuarzosP2.text = Monedas.MonedasP2.ToString();
+    }
 
-            if (this.gameObject.CompareTag("jugador2"))
-            {
-                NumCuarzos.text = mone.MonedasP2Text;
-            }*/
-        }
+
+    private void Update()
+    {
+        NumCuarzosP1.text = Monedas.MonedasP1.ToString();
+        NumCuarzosP2.text = Monedas.MonedasP2.ToString();
+        TotCuarzos.text = Monedas.NumMonedas.ToString();
     }
 }

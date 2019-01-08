@@ -33,6 +33,7 @@ public class Monedas : Photon.MonoBehaviour {
         if (other.CompareTag("jugador1")) {
             MonedasP1 = MonedasP1 + 1;
             MonedasP1Text = MonedasP1.ToString();
+            Debug.Log("Monedas P1 " + MonedasP1Text);
             Destroy(gameObject);
         }
 
@@ -40,6 +41,7 @@ public class Monedas : Photon.MonoBehaviour {
         {
             MonedasP2 = MonedasP2 + 1;
             MonedasP2Text = MonedasP2.ToString();
+            Debug.Log("Monedas P2 " + MonedasP1Text);
             Destroy(gameObject);
         }
     }
@@ -74,8 +76,8 @@ public class Monedas : Photon.MonoBehaviour {
         //poseemos el objeto mandamos la informacion a los demas juagdores.
         if (stream.isWriting)
         {
-            stream.SendNext(gameObject.transform.position);
-            stream.SendNext(gameObject.transform.rotation);
+            stream.SendNext(transform.position);
+            stream.SendNext(transform.rotation);
         }
         //si no poseemos el objeto, enviamos la posicion del objeto a los demas jugadores
         else {

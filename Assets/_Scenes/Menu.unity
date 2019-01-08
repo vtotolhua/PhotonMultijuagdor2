@@ -436,6 +436,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pHandler: {fileID: 352958636}
   pConnect: {fileID: 351936327}
+  escena: 
   createRoomName: default
 --- !u!1 &352958635
 GameObject:
@@ -465,7 +466,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   photonB: {fileID: 351936328}
-  mainPlayer: {fileID: 1385003975566788, guid: 6bcecefea546f0b44b4d7d1c71b26fc3, type: 2}
+  mainPlayer:
+  - {fileID: 1172975536124468, guid: 52a549cc18495a34d8af2b560de559ac, type: 2}
+  - {fileID: 1385003975566788, guid: 6bcecefea546f0b44b4d7d1c71b26fc3, type: 2}
 --- !u!4 &352958637
 Transform:
   m_ObjectHideFlags: 0
@@ -1380,7 +1383,7 @@ GameObject:
   - component: {fileID: 899711372}
   - component: {fileID: 899711375}
   m_Layer: 5
-  m_Name: 'JoinaServerButton '
+  m_Name: 'FPSSceneButton '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1400,10 +1403,10 @@ RectTransform:
   m_Father: {fileID: 779441291}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.45000002, y: 0.16680256}
-  m_AnchorMax: {x: 0.6712499, y: 0.27358827}
-  m_AnchoredPosition: {x: -4.1364484, y: 4.694552}
-  m_SizeDelta: {x: -7.7268934, y: -0.39097962}
+  m_AnchorMin: {x: 0.24621095, y: 0.38537642}
+  m_AnchorMax: {x: 0.47000003, y: 0.48427856}
+  m_AnchoredPosition: {x: 0.9437928, y: 4.3353806}
+  m_SizeDelta: {x: -9.814139, y: 3.7441664}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &899711372
 MonoBehaviour:
@@ -1503,9 +1506,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DoNotTesselate: 0
-  savedPos: {x: 44.392365, y: -143.57486, z: 0}
+  savedPos: {x: -112.50002, y: -30.233244, z: 0}
   savedUp: {x: 0, y: 1, z: 0}
-  savedRectSize: {x: 169.27304, y: 56.181347}
+  savedRectSize: {x: 169.21713, y: 56.13995}
   savedColor: {r: 1, g: 1, b: 1, a: 1}
   savedTextUV0: {x: 0, y: 0}
   savedFill: 1
@@ -1873,12 +1876,12 @@ GameObject:
   - component: {fileID: 1099605418}
   - component: {fileID: 1099605421}
   m_Layer: 5
-  m_Name: CreateServerButton
+  m_Name: HelicopterSceneButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1099605417
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1893,10 +1896,10 @@ RectTransform:
   m_Father: {fileID: 779441291}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.45000002, y: 0.14215632}
-  m_AnchorMax: {x: 0.66125005, y: 0.2197614}
-  m_AnchoredPosition: {x: -0.5999985, y: -3.7999878}
-  m_SizeDelta: {x: -63.68, y: -7.6}
+  m_AnchorMin: {x: 0.70600003, y: 0.36400002}
+  m_AnchorMax: {x: 0.90889615, y: 0.48427856}
+  m_AnchoredPosition: {x: -15.885801, y: 8.341259}
+  m_SizeDelta: {x: -29.105377, y: -9.885045}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1099605418
 MonoBehaviour:
@@ -1917,8 +1920,8 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.51290494, g: 0.8367079, b: 0.9622642, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 0.24563903, g: 0.61181796, b: 0.754717, a: 1}
+    m_HighlightedColor: {r: 0.8018868, g: 0.13995194, b: 0.18668866, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -1938,7 +1941,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 351936328}
-        m_MethodName: OnClickCreateRoom
+        m_MethodName: BotonHelicoptero
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1996,9 +1999,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DoNotTesselate: 0
-  savedPos: {x: 43.90003, y: -172.81972, z: 0}
+  savedPos: {x: 230.10384, y: -31.84811, z: 0}
   savedUp: {x: 0, y: 1, z: 0}
-  savedRectSize: {x: 105.32006, y: 33.513176}
+  savedRectSize: {x: 133.21152, y: 53.8354}
   savedColor: {r: 1, g: 1, b: 1, a: 1}
   savedTextUV0: {x: 0, y: 0}
   savedFill: 1
@@ -2836,7 +2839,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Iniciar juego
+  m_Text: FPS Shooter
 --- !u!222 &1708192037
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2856,11 +2859,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DoNotTesselate: 0
-  savedPos: {x: 44.447975, y: -143.55745, z: 0}
+  savedPos: {x: -112.50002, y: -30.233244, z: 0}
   savedUp: {x: 0, y: 1, z: 0}
-  savedRectSize: {x: 169.27304, y: 56.181347}
+  savedRectSize: {x: 169.21713, y: 56.13995}
   savedColor: {r: 1, g: 1, b: 1, a: 1}
-  savedTextUV0: {x: 0, y: 0.0078125}
+  savedTextUV0: {x: 0.1328125, y: 0}
   savedFill: 0
 --- !u!1 &1716334149
 GameObject:
@@ -3264,7 +3267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.043164823, g: 0.08352902, b: 0.09433961, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3284,7 +3287,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Crear
+  m_Text: Helicoptero
 --- !u!222 &2001906073
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3304,9 +3307,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DoNotTesselate: 0
-  savedPos: {x: 43.90003, y: -172.81972, z: 0}
+  savedPos: {x: 230.10384, y: -31.84811, z: 0}
   savedUp: {x: 0, y: 1, z: 0}
-  savedRectSize: {x: 105.32006, y: 33.513176}
-  savedColor: {r: 0.043164823, g: 0.08352902, b: 0.09433961, a: 1}
+  savedRectSize: {x: 133.21152, y: 53.8354}
+  savedColor: {r: 1, g: 1, b: 1, a: 1}
   savedTextUV0: {x: 0, y: 0.0078125}
   savedFill: 0

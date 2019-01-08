@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 public class photonHand : MonoBehaviour {
 
     public PhotonButtons photonB;
-    public GameObject mainPlayer;
+    public GameObject [] mainPlayer;
+    
     //private int numJug = 0;
 
     private void Awake() {
@@ -28,27 +29,35 @@ public class photonHand : MonoBehaviour {
     
     public void moveScene() {
         //PhotonNetwork.LoadLevel("EscenaUno");
-        PhotonNetwork.LoadLevel("Helicoptero");
+        PhotonNetwork.LoadLevel(photonB.escena);
     }
 
     private void OnJoinedRoom()
     {
+
         moveScene();
 //        Debug.Log("Estamos en el room" + photonB.createRoomInput.text);
     }
 
     private void OnSceneFinishedLoading(Scene scene, LoadSceneMode mode) {
-        if ( scene.name == "Helicoptero")
+        if ( scene.name == "EscenaUno")
         {
-            //numJug += 1;
-            SpawnPlayer();
-             
+            SpawnPlayer();    
+        }
+
+        if (scene.name == "Helicoptero")
+        {
+            SpawnHelicopter();
         }
     }
 
     private void SpawnPlayer ()
     {
-        PhotonNetwork.Instantiate(mainPlayer.name, mainPlayer.transform.position, mainPlayer.transform.rotation, 0);
-        //mainPlayer.tag = "jugador" + numJug;
+        PhotonNetwork.Instantiate(mainPlayer[0].name, mainPlayer[0].transform.position, mainPlayer[0].transform.rotation, 0);
+    }
+
+    private void SpawnHelicopter()
+    {
+        PhotonNetwork.Instantiate(mainPlayer[1].name, mainPlayer[1].transform.position, mainPlayer[1].transform.rotation, 0);
     }
 }

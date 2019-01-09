@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 
 
-public class CuentaMonedas : MonoBehaviour {
+public class CuentaMonedas : Photon.MonoBehaviour {
 
     public TMP_Text NumCuarzosP1;
     public TMP_Text NumCuarzosP2;
@@ -21,9 +21,10 @@ public class CuentaMonedas : MonoBehaviour {
     private void Awake()
     {
         //PhotonGUI = GetComponent<PhotonView>();
-        Debug.Log("CM Tag Player " + TagPlayer.ToString());
-        TagPlayer.text = gameObject.tag.ToString();
         
+        TagPlayer.text = this.gameObject.tag;
+        Debug.Log("S Cuen Mone Tag Player " + this.tag);
+
         TotCuarzos.text = Monedas.NumMonedas.ToString();
         NumCuarzosP1.text = Monedas.MonedasP1.ToString();
         NumCuarzosP2.text = Monedas.MonedasP2.ToString();

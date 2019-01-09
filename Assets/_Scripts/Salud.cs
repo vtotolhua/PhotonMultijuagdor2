@@ -25,8 +25,14 @@ public class Salud : MonoBehaviour {
         set
         {
             _PuntosSalud = value;
-            SaludString = PuntosSalud.ToString();
-            salud.text = SaludString;
+            
+            if (this.gameObject.tag == "jugador1" || this.gameObject.tag == "jugador2")
+            {
+                Debug.Log(PuntosSalud);
+                SaludString = PuntosSalud.ToString();
+                salud.text = SaludString;
+                //salud.text = PuntosSalud.ToString();
+            }
 
             if (_PuntosSalud <= 0.0f)
             {

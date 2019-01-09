@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 public class photonHand : MonoBehaviour {
 
     public PhotonButtons photonB;
-    public GameObject [] mainPlayer;
-    private GameObject player;
-    
+    public GameObject [] mainPlayer = null;
+    private GameObject player = null;
+        
     //private int numJug = 0;
 
     private void Awake() {
@@ -40,26 +40,41 @@ public class photonHand : MonoBehaviour {
     }
 
     private void OnSceneFinishedLoading(Scene scene, LoadSceneMode mode) {
-
-
+        
         if ( scene.name == "EscenaUno")
         {
-            player = mainPlayer[0];
-            SpawnPlayer();    
+            Debug.Log("Player count inicio " + PhotonNetwork.room.PlayerCount);
+
+            if (PhotonNetwork.room.PlayerCount == 1)
+            //if ( GameObject.FindGameObjectWithTag("jugador1") == null)
+            {
+                player = mainPlayer[0];
+                Debug.Log("player 1 " + player.name);
+                Debug.Log("Player count " + PhotonNetwork.room.PlayerCount);
+                SpawnPlayer();
+            }
+
+            if (PhotonNetwork.room.PlayerCount == 2)
+            {
+                player = mainPlayer[1];
+                Debug.Log("player 2 " + player.name);
+                Debug.Log("Player count " + PhotonNetwork.room.PlayerCount);
+                SpawnPlayer();
+            } 
         }
 
         if (scene.name == "Helicoptero")
         {
-            player = mainPlayer[1];
+            player = mainPlayer[2];
             SpawnHelicopter();
         }
     }
 
     private void SpawnPlayer ()
     {
-        Debug.Log("Num Jugadores " + PhotonNetwork.playerList.Length);
-
-        if (PhotonNetwork.playerList.Length == 0)
+        PhotonNetwork.Instantiate(player.name, player.transform.position, player.transform.rotation, 0);
+        /*Debug.Log("Num Jugadores " + PhotonNetwork.playerList.Length);
+        if (PhotonNetwork.playerName == "jugador1")
         {
             PhotonNetwork.Instantiate(player.name, player.transform.position, player.transform.rotation, 0);
             PhotonNetwork.playerName = "jugador1";
@@ -70,11 +85,11 @@ public class photonHand : MonoBehaviour {
         if (PhotonNetwork.playerList.Length == 1)
         {
             PhotonNetwork.Instantiate(player.name, player.transform.position, player.transform.rotation, 0);
-            PhotonNetwork.playerName = "jugador2";
+            PhotonNetwork.playerName = "jugador2"; 
             player.tag = "jugador2";
             Debug.Log("Nom Jugador " + PhotonNetwork.playerName);
             Debug.Log("Tag Jugador " + player.tag);
-        }
+        }*/
     }
 
     private void SpawnHelicopter()

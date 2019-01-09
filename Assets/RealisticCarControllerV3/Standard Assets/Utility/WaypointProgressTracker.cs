@@ -1,16 +1,18 @@
 using System;
 using UnityEngine;
+using System.Collections;
 
 namespace UnityStandardAssets.Utility
 {
     public class WaypointProgressTracker : MonoBehaviour
     {
-        // This script can be used with any object that is supposed to follow a
+
+		// This script can be used with any object that is supposed to follow a
         // route marked out by waypoints.
 
         // This script manages the amount to look ahead along the route,
         // and keeps track of progress and laps.
-
+		
         [SerializeField] private WaypointCircuit circuit; // A reference to the waypoint-based route we should follow
 
         [SerializeField] private float lookAheadForTargetOffset = 5;
@@ -44,6 +46,7 @@ namespace UnityStandardAssets.Utility
 
         public Transform target;
 
+
         private float progressDistance; // The progress round the route, used in smooth mode.
         private int progressNum; // the current waypoint number, used in point-to-point mode.
         private Vector3 lastPosition; // Used to calculate current speed (since we may not have a rigidbody component)
@@ -52,6 +55,7 @@ namespace UnityStandardAssets.Utility
         // setup script properties
         private void Start()
         {
+			circuit = GameObject.Find("Race Scene Manager").GetComponent<UnityStandardAssets.Utility.WaypointCircuit>();
             // we use a transform to represent the point to aim for, and the point which
             // is considered for upcoming changes-of-speed. This allows this component
             // to communicate this information to the AI without requiring further dependencies.
@@ -65,7 +69,6 @@ namespace UnityStandardAssets.Utility
 
             Reset();
         }
-
 
         // reset the object to sensible values
         public void Reset()
@@ -139,7 +142,7 @@ namespace UnityStandardAssets.Utility
 
         private void OnDrawGizmos()
         {
-            if (Application.isPlaying)
+			if (Application.isPlaying && circuit != null)
             {
                 Gizmos.color = Color.green;
                 Gizmos.DrawLine(transform.position, target.position);

@@ -2225,8 +2225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ParticulasMuerte: {fileID: 0}
   QuieresDestruiralMorir: 1
-  salud: {fileID: 114987563993854638}
-  SaludString: 
+  SaludText: {fileID: 114987563993854638}
   _PuntosSalud: 100
 --- !u!114 &114375493708029188
 MonoBehaviour:

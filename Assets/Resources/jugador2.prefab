@@ -1982,8 +1982,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ParticulasMuerte: {fileID: 0}
   QuieresDestruiralMorir: 1
-  salud: {fileID: 114913473057413770}
-  SaludString: 
+  SaludText: {fileID: 114913473057413770}
   _PuntosSalud: 100
 --- !u!114 &114433854663169226
 MonoBehaviour:

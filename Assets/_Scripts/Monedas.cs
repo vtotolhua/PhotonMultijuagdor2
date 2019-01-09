@@ -33,7 +33,7 @@ public class Monedas : Photon.MonoBehaviour {
         if (other.CompareTag("jugador1")) {
             MonedasP1 = MonedasP1 + 1;
             MonedasP1Text = MonedasP1.ToString();
-            Debug.Log("Monedas P1 " + MonedasP1Text);
+            //Debug.Log("Monedas P1 " + MonedasP1Text);
             Destroy(gameObject);
         }
 
@@ -41,7 +41,7 @@ public class Monedas : Photon.MonoBehaviour {
         {
             MonedasP2 = MonedasP2 + 1;
             MonedasP2Text = MonedasP2.ToString();
-            Debug.Log("Monedas P2 " + MonedasP1Text);
+            //Debug.Log("Monedas P2 " + MonedasP1Text);
             Destroy(gameObject);
         }
     }

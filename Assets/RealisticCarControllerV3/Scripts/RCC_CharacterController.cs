@@ -37,8 +37,7 @@ public class RCC_CharacterController : Photon.MonoBehaviour {
     public bool KartTest = false;
 
 
-    private void Awake()
-    {
+    void Start () {
         KartPV = GetComponent<PhotonView>();
 
         if (!KartTest && KartPV.isMine)
@@ -48,9 +47,8 @@ public class RCC_CharacterController : Photon.MonoBehaviour {
             ScenCam.SetActive(false);
             PlCam.SetActive(true);
         }
-    }
-    void Start () {
-		if(!animator)
+
+        if (!animator)
 			animator = GetComponentInChildren<Animator>();
 		carController = GetComponent<RCC_CarControllerV3>();
 		carRigid = GetComponent<Rigidbody>();
@@ -115,7 +113,7 @@ public class RCC_CharacterController : Photon.MonoBehaviour {
 
                 animator.SetFloat(driverSteeringParameter, steerInput);
             }
-            else smoothNetMovement();
+            else SmoothNetMovement();
         }
     }
 
@@ -128,7 +126,7 @@ public class RCC_CharacterController : Photon.MonoBehaviour {
 
 	}
 
-    private void smoothNetMovement() {
+    private void SmoothNetMovement() {
         transform.position = Vector3.Lerp(transform.position, KartNetPosicion, Time.deltaTime * 10);
         transform.rotation = Quaternion.Lerp(transform.rotation, KartNetRot, Time.deltaTime * 10);
     }

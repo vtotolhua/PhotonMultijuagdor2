@@ -16,7 +16,7 @@ using UnityEngine.EventSystems;
 
 [AddComponentMenu("BoneCracker Games/Realistic Car Controller/Main/Realistic Car Controller V3")]
 [RequireComponent (typeof(Rigidbody))]
-public class RCC_CarControllerV3 : MonoBehaviour {
+public class RCC_CarControllerV3 : Photon.MonoBehaviour {
 
 	private RCC_Settings RCCSettings{get{return RCC_Settings.Instance;}}		// Getting an Instance of Main Shared RCC Settings.
 	private Rigidbody rigid;		// Rigidbody.
@@ -294,123 +294,146 @@ public class RCC_CarControllerV3 : MonoBehaviour {
 
 	private RCC_Camera carCamera;
 
-	// EVENTS
+    // EVENTS
 
-//	public delegate void onRCCSpawned(RCC_CarControllerV3 RCC);
-//	public static event onRCCSpawned OnRCCSpawned;
+    //	public delegate void onRCCSpawned(RCC_CarControllerV3 RCC);
+    //	public static event onRCCSpawned OnRCCSpawned;
 
-	void Awake (){
+    //PhotonView Variables
 
-		if(RCCSettings.overrideFixedTimeStep)
-			Time.fixedDeltaTime = RCCSettings.fixedTimeStep;
+    private PhotonView KartPV;
+    private Vector3 KartNetPosicion;
+    private Quaternion KartNetRot;
+    //private GameObject ScenCam;
+    //public GameObject PlCam;
+    //public bool KartTest = false;
 
-		rigid = GetComponent<Rigidbody>();
-		rigid.maxAngularVelocity = RCCSettings.maxAngularVelocity;
-		rigid.drag = .05f;
-		rigid.angularDrag = .25f;
+    void Awake (){
+        KartPV = GetComponent<PhotonView>();
 
-		allWheelColliders = GetComponentsInChildren<RCC_WheelCollider>();
-//		anyWheel = GetComponentInChildren<WheelCollider>();
-//		anyWheel.ConfigureVehicleSubsteps(10f, 2, 2);
+        if (KartPV.isMine) {
 
-		FrontLeftWheelCollider.wheelModel = FrontLeftWheelTransform;
-		FrontRightWheelCollider.wheelModel = FrontRightWheelTransform;
-		RearLeftWheelCollider.wheelModel = RearLeftWheelTransform;
-		RearRightWheelCollider.wheelModel = RearRightWheelTransform;
+      /*      //Desactivo / activo Camaras
+            ScenCam = GameObject.Find("Main Camera");
+            ScenCam.SetActive(false);
+            PlCam.SetActive(true);*/
 
-		for (int i = 0; i < ExtraRearWheelsCollider.Length; i++) {
-			ExtraRearWheelsCollider[i].wheelModel = ExtraRearWheelsTransform[i];
-		}
+            //control del Kart Condiciones iniciales
 
-		orgSteerAngle = steerAngle;
+            if (RCCSettings.overrideFixedTimeStep)
+                Time.fixedDeltaTime = RCCSettings.fixedTimeStep;
 
-		allContactParticles = new GameObject("All Contact Particles");
-		allContactParticles.transform.SetParent(transform, false);
+            rigid = GetComponent<Rigidbody>();
+            rigid.maxAngularVelocity = RCCSettings.maxAngularVelocity;
+            rigid.drag = .05f;
+            rigid.angularDrag = .25f;
 
-		if(GetComponent<RCC_AICarController>())
-			AIController = true;
+            allWheelColliders = GetComponentsInChildren<RCC_WheelCollider>();
+            //		anyWheel = GetComponentInChildren<WheelCollider>();
+            //		anyWheel.ConfigureVehicleSubsteps(10f, 2, 2);
 
-		if(autoGenerateGearCurves)
-			TorqueCurve();
+            FrontLeftWheelCollider.wheelModel = FrontLeftWheelTransform;
+            FrontRightWheelCollider.wheelModel = FrontRightWheelTransform;
+            RearLeftWheelCollider.wheelModel = RearLeftWheelTransform;
+            RearRightWheelCollider.wheelModel = RearRightWheelTransform;
 
-		SoundsInitialize();
+            for (int i = 0; i < ExtraRearWheelsCollider.Length; i++)
+            {
+                ExtraRearWheelsCollider[i].wheelModel = ExtraRearWheelsTransform[i];
+            }
 
-		if(useDamage)
-			DamageInit();
+            orgSteerAngle = steerAngle;
 
-		if(runEngineAtAwake || AIController)
-			KillOrStartEngine();
+            allContactParticles = new GameObject("All Contact Particles");
+            allContactParticles.transform.SetParent(transform, false);
 
-		if (chassis) {
-			if (!chassis.GetComponent<RCC_Chassis> ())
-				chassis.AddComponent<RCC_Chassis> ();
-		}
+            if (GetComponent<RCC_AICarController>())
+                AIController = true;
 
-		switch(RCCSettings.behaviorType){
+            if (autoGenerateGearCurves)
+                TorqueCurve();
 
-		case RCC_Settings.BehaviorType.SemiArcade:
-			steeringHelper = true;
-			tractionHelper = true;
-			ABS = false;
-			ESP = false;
-			TCS = false;
-			steerHelperLinearVelStrength = Mathf.Clamp(steerHelperLinearVelStrength, .5f, 1f);
-			steerHelperAngularVelStrength = Mathf.Clamp(steerHelperAngularVelStrength, 1f, 1f);
-			tractionHelperStrength = Mathf.Clamp(tractionHelperStrength, .25f, 1f);
-			antiRollFrontHorizontal = Mathf.Clamp(antiRollFrontHorizontal, 10000f, Mathf.Infinity);
-			antiRollRearHorizontal = Mathf.Clamp(antiRollRearHorizontal, 10000f, Mathf.Infinity);
-			gearShiftingDelay = Mathf.Clamp(gearShiftingDelay, 0f, .1f);
-			break;
+            SoundsInitialize();
 
-		case RCC_Settings.BehaviorType.Drift:
-			steeringHelper = false;
-			//tractionHelper = false;
-			ABS = false;
-			ESP = false;
-			TCS = false;
-			highspeedsteerAngle = Mathf.Clamp(highspeedsteerAngle, 40f, 50f);
-			highspeedsteerAngleAtspeed = Mathf.Clamp(highspeedsteerAngleAtspeed, 100f, maxspeed);
-			//applyCounterSteering = true;
-			engineTorque = Mathf.Clamp(engineTorque, 5000f, Mathf.Infinity);
-			antiRollFrontHorizontal = Mathf.Clamp(antiRollFrontHorizontal, 3500f, Mathf.Infinity);
-			antiRollRearHorizontal = Mathf.Clamp(antiRollRearHorizontal, 3500f, Mathf.Infinity);
-			gearShiftingDelay = Mathf.Clamp(gearShiftingDelay, 0f, .15f);
-			break;
+            if (useDamage)
+                DamageInit();
 
-		case RCC_Settings.BehaviorType.Fun:
-			steeringHelper = true;
-			tractionHelper = true;
-			ABS = false;
-			ESP = false;
-			TCS = false;
-			steerHelperLinearVelStrength = Mathf.Clamp(steerHelperLinearVelStrength, .5f, 1f);
-			steerHelperAngularVelStrength = Mathf.Clamp(steerHelperAngularVelStrength, 1f, 1f);
-			highspeedsteerAngle = Mathf.Clamp(highspeedsteerAngle, 30f, 50f);
-			highspeedsteerAngleAtspeed = Mathf.Clamp(highspeedsteerAngleAtspeed, 100f, maxspeed);
-			antiRollFrontHorizontal = Mathf.Clamp(antiRollFrontHorizontal, 50000f, Mathf.Infinity);
-			antiRollRearHorizontal = Mathf.Clamp(antiRollRearHorizontal, 50000f, Mathf.Infinity);
-			gearShiftingDelay = Mathf.Clamp(gearShiftingDelay, 0f, .1f);
-			break;
+            if (runEngineAtAwake || AIController)
+                KillOrStartEngine();
 
-		case RCC_Settings.BehaviorType.Racing:
-			steeringHelper = true;
-			tractionHelper = true;
-			steerHelperLinearVelStrength = Mathf.Clamp(steerHelperLinearVelStrength, .25f, 1f);
-			steerHelperAngularVelStrength = Mathf.Clamp(steerHelperAngularVelStrength, .25f, 1f);
-			tractionHelperStrength = Mathf.Clamp(tractionHelperStrength, .25f, 1f);
-			antiRollFrontHorizontal = Mathf.Clamp(antiRollFrontHorizontal, 10000f, Mathf.Infinity);
-			antiRollRearHorizontal = Mathf.Clamp(antiRollRearHorizontal, 10000f, Mathf.Infinity);
-			break;
+            if (chassis)
+            {
+                if (!chassis.GetComponent<RCC_Chassis>())
+                    chassis.AddComponent<RCC_Chassis>();
+            }
 
-		case RCC_Settings.BehaviorType.Simulator:
-			antiRollFrontHorizontal = Mathf.Clamp(antiRollFrontHorizontal, 2500f, Mathf.Infinity);
-			antiRollRearHorizontal = Mathf.Clamp(antiRollRearHorizontal, 2500f, Mathf.Infinity);
-			break;
+            switch (RCCSettings.behaviorType)
+            {
 
-		}
+                case RCC_Settings.BehaviorType.SemiArcade:
+                    steeringHelper = true;
+                    tractionHelper = true;
+                    ABS = false;
+                    ESP = false;
+                    TCS = false;
+                    steerHelperLinearVelStrength = Mathf.Clamp(steerHelperLinearVelStrength, .5f, 1f);
+                    steerHelperAngularVelStrength = Mathf.Clamp(steerHelperAngularVelStrength, 1f, 1f);
+                    tractionHelperStrength = Mathf.Clamp(tractionHelperStrength, .25f, 1f);
+                    antiRollFrontHorizontal = Mathf.Clamp(antiRollFrontHorizontal, 10000f, Mathf.Infinity);
+                    antiRollRearHorizontal = Mathf.Clamp(antiRollRearHorizontal, 10000f, Mathf.Infinity);
+                    gearShiftingDelay = Mathf.Clamp(gearShiftingDelay, 0f, .1f);
+                    break;
 
-		carCamera = GameObject.FindObjectOfType<RCC_Camera> ();
+                case RCC_Settings.BehaviorType.Drift:
+                    steeringHelper = false;
+                    //tractionHelper = false;
+                    ABS = false;
+                    ESP = false;
+                    TCS = false;
+                    highspeedsteerAngle = Mathf.Clamp(highspeedsteerAngle, 40f, 50f);
+                    highspeedsteerAngleAtspeed = Mathf.Clamp(highspeedsteerAngleAtspeed, 100f, maxspeed);
+                    //applyCounterSteering = true;
+                    engineTorque = Mathf.Clamp(engineTorque, 5000f, Mathf.Infinity);
+                    antiRollFrontHorizontal = Mathf.Clamp(antiRollFrontHorizontal, 3500f, Mathf.Infinity);
+                    antiRollRearHorizontal = Mathf.Clamp(antiRollRearHorizontal, 3500f, Mathf.Infinity);
+                    gearShiftingDelay = Mathf.Clamp(gearShiftingDelay, 0f, .15f);
+                    break;
 
+                case RCC_Settings.BehaviorType.Fun:
+                    steeringHelper = true;
+                    tractionHelper = true;
+                    ABS = false;
+                    ESP = false;
+                    TCS = false;
+                    steerHelperLinearVelStrength = Mathf.Clamp(steerHelperLinearVelStrength, .5f, 1f);
+                    steerHelperAngularVelStrength = Mathf.Clamp(steerHelperAngularVelStrength, 1f, 1f);
+                    highspeedsteerAngle = Mathf.Clamp(highspeedsteerAngle, 30f, 50f);
+                    highspeedsteerAngleAtspeed = Mathf.Clamp(highspeedsteerAngleAtspeed, 100f, maxspeed);
+                    antiRollFrontHorizontal = Mathf.Clamp(antiRollFrontHorizontal, 50000f, Mathf.Infinity);
+                    antiRollRearHorizontal = Mathf.Clamp(antiRollRearHorizontal, 50000f, Mathf.Infinity);
+                    gearShiftingDelay = Mathf.Clamp(gearShiftingDelay, 0f, .1f);
+                    break;
+
+                case RCC_Settings.BehaviorType.Racing:
+                    steeringHelper = true;
+                    tractionHelper = true;
+                    steerHelperLinearVelStrength = Mathf.Clamp(steerHelperLinearVelStrength, .25f, 1f);
+                    steerHelperAngularVelStrength = Mathf.Clamp(steerHelperAngularVelStrength, .25f, 1f);
+                    tractionHelperStrength = Mathf.Clamp(tractionHelperStrength, .25f, 1f);
+                    antiRollFrontHorizontal = Mathf.Clamp(antiRollFrontHorizontal, 10000f, Mathf.Infinity);
+                    antiRollRearHorizontal = Mathf.Clamp(antiRollRearHorizontal, 10000f, Mathf.Infinity);
+                    break;
+
+                case RCC_Settings.BehaviorType.Simulator:
+                    antiRollFrontHorizontal = Mathf.Clamp(antiRollFrontHorizontal, 2500f, Mathf.Infinity);
+                    antiRollRearHorizontal = Mathf.Clamp(antiRollRearHorizontal, 2500f, Mathf.Infinity);
+                    break;
+
+            }
+
+            carCamera = GameObject.FindObjectOfType<RCC_Camera>();
+
+        }
 	}
 
 	void OnEnable(){
@@ -691,29 +714,57 @@ public class RCC_CarControllerV3 : MonoBehaviour {
 	}
 	
 	void Update (){
-		
-		if(canControl){
-			if(!AIController)
-				Inputs();
-			GearBox();
-			Clutch();
-		}else if(!AIController){
-			_gasInput = 0f;
-			brakeInput = 0f;
-			boostInput = 1f;
-			handbrakeInput = 1f;
-		}
-			
-		Turbo();
-		Sounds();
-		ResetCar();
+        //if (!KartTest)
+        {
+            if (KartPV.isMine)
+            {
+                if (canControl)
+                {
+                    if (!AIController)
+                        Inputs();
+                    GearBox();
+                    Clutch();
+                }
+                else if (!AIController)
+                {
+                    _gasInput = 0f;
+                    brakeInput = 0f;
+                    boostInput = 1f;
+                    handbrakeInput = 1f;
+                }
 
-		if(useDamage)
-			Damage();
+                Turbo();
+                Sounds();
+                ResetCar();
 
-		indicatorTimer += Time.deltaTime;
-		
-	}
+                if (useDamage)
+                    Damage();
+
+                indicatorTimer += Time.deltaTime;
+            }
+
+            else SmoothNetMovement();
+        }
+    }
+
+    private void SmoothNetMovement()
+    {
+        transform.position = Vector3.Lerp(transform.position, KartNetPosicion, Time.deltaTime * 8);
+        transform.rotation = Quaternion.Lerp(transform.rotation, KartNetRot, Time.deltaTime * 8);
+    }
+
+    private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.isWriting)
+        {
+            stream.SendNext(transform.position);
+            stream.SendNext(transform.rotation);
+        }
+        else {
+            KartNetPosicion = (Vector3)stream.ReceiveNext();
+            KartNetRot = (Quaternion)stream.ReceiveNext();
+        }
+    }
 
 	void Inputs(){
 		

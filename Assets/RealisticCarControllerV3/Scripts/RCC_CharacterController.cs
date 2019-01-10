@@ -29,24 +29,25 @@ public class RCC_CharacterController : Photon.MonoBehaviour {
 
     //PhotonView 
 
-    private PhotonView KartPV;
+    /*private PhotonView KartPV;
     private Vector3 KartNetPosicion;
-    private Quaternion KartNetRot;
+    private Quaternion KartNetRot;*/
     private GameObject ScenCam;
     public GameObject PlCam;
     public bool KartTest = false;
 
 
     void Start () {
-        KartPV = GetComponent<PhotonView>();
+        //KartPV = GetComponent<PhotonView>();
 
-        if (!KartTest && KartPV.isMine)
+        if (!KartTest)
         {
             ScenCam = GameObject.Find("Main Camera");
 
             ScenCam.SetActive(false);
             PlCam.SetActive(true);
         }
+
 
         if (!animator)
 			animator = GetComponentInChildren<Animator>();
@@ -57,8 +58,8 @@ public class RCC_CharacterController : Photon.MonoBehaviour {
 
 	void Update () {
 
-        if (!KartTest) {
-            if (KartPV.isMine)
+        //if (!KartTest) {
+        //    if (KartPV.isMine)
             {
                 steerInput = Mathf.Lerp(steerInput, carController.steerInput, Time.deltaTime * 5f);
                 directionInput = carRigid.transform.InverseTransformDirection(carRigid.velocity).z;
@@ -113,8 +114,8 @@ public class RCC_CharacterController : Photon.MonoBehaviour {
 
                 animator.SetFloat(driverSteeringParameter, steerInput);
             }
-            else SmoothNetMovement();
-        }
+            //else SmoothNetMovement();
+        //}
     }
 
 	void OnCollisionEnter(Collision col){
@@ -126,7 +127,7 @@ public class RCC_CharacterController : Photon.MonoBehaviour {
 
 	}
 
-    private void SmoothNetMovement() {
+ /*   private void SmoothNetMovement() {
         transform.position = Vector3.Lerp(transform.position, KartNetPosicion, Time.deltaTime * 10);
         transform.rotation = Quaternion.Lerp(transform.rotation, KartNetRot, Time.deltaTime * 10);
     }
@@ -141,5 +142,5 @@ public class RCC_CharacterController : Photon.MonoBehaviour {
             KartNetPosicion = (Vector3)stream.ReceiveNext();
             KartNetRot = (Quaternion)stream.ReceiveNext();
         }
-    }
+    }*/
 }

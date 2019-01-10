@@ -24,20 +24,19 @@ public class Bala : Photon.MonoBehaviour {
             //CuerpoBala.velocity = transform.forward * FuerzaBala * Time.deltaTime;
             //gameObject.GetComponent<Rigidbody>().velocity = gameObject.transform.forward * FuerzaBala * Time.deltaTime;    
         }
-        else smoothNetMovement();
+       // else smoothNetMovement();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Salud>()) {
-            
+        if (other.GetComponent<Salud>()) {   
             Debug.Log("etiqueta del objeto " +  other.tag);
             Salud sal = other.gameObject.GetComponent<Salud>();
             if (sal == null) return;
             sal.PuntosSalud -= PuntosDanio;
             sal.SaludText.text = sal.PuntosSalud.ToString();
             Debug.Log("Puntos Salud " + sal.PuntosSalud);
-            Debug.Log("etiqueta del objeto " + sal.PuntosSalud);
+            Debug.Log("etiqueta del objeto " + other.tag +  sal.PuntosSalud);
             Destroy(gameObject);
         }
         
@@ -58,10 +57,10 @@ public class Bala : Photon.MonoBehaviour {
         */
     }
 
-    private void smoothNetMovement()
+    /*private void smoothNetMovement()
     {
         transform.position = Vector3.Lerp(transform.position, selfPos, Time.deltaTime * 8);
-    }
+    }*/
 
     private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {

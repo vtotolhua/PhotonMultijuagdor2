@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/Helicoptero.unity
     guid: 72a3bfa64624d9e40a8e7206e4a8867a
+  - enabled: 1
+    path: Assets/_Scenes/MoonKart.unity
+    guid: dec6e130cf4a7214687cf8f449c42134
   m_configObjects: {}

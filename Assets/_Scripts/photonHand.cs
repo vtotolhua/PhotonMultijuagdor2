@@ -68,6 +68,11 @@ public class photonHand : MonoBehaviour {
             player = mainPlayer[2];
             SpawnHelicopter();
         }
+
+        if (scene.name == "MoonKart") {
+            player = mainPlayer[3];
+            SpawnPlayer();
+        }
     }
 
     private void SpawnPlayer ()

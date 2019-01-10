@@ -35,4 +35,11 @@ public class PhotonButtons : MonoBehaviour {
         pConnect.sectionView2.SetActive(false);
         pConnect.sectionView4.SetActive(true);
     }
+
+    public void BotonKart() {
+        escena = "MoonKart";
+        pHandler.joinOrCreateRoom();
+        pConnect.sectionView2.SetActive(false);
+        pConnect.sectionView4.SetActive(true);
+    }
 }

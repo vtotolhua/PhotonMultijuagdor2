@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerMov : Photon.MonoBehaviour {
 
     public bool devTesting = false;
-    public PhotonView photonView;
+    public PhotonView PlphotonView;
     public float VelMov;
     private float translation, straffe, jumpforce;
     private Vector3 RecibePosicion;
@@ -15,7 +15,7 @@ public class PlayerMov : Photon.MonoBehaviour {
     public GameObject plCam;
 
     private void Awake () {
-        if (!devTesting && photonView.isMine) {
+        if (!devTesting && PlphotonView.isMine) {
             sceneCam = GameObject.Find("Main Camera");
             sceneCam.SetActive(false);
             plCam.SetActive(true);
@@ -30,7 +30,7 @@ public class PlayerMov : Photon.MonoBehaviour {
 
         if (!devTesting)
         {
-            if (photonView.isMine)
+            if (PlphotonView.isMine)
             {
                 checkInput();
             }
@@ -57,6 +57,7 @@ public class PlayerMov : Photon.MonoBehaviour {
 
     private void smoothNetMovement() {
         transform.position = Vector3.Lerp(transform.position, RecibePosicion, Time.deltaTime * 8);
+        transform.rotation = Quaternion.Lerp(transform.rotation, RecibeRotacion, Time.deltaTime * 8);
     }
 
     private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class HeliController : MonoBehaviour
+public class HeliController : Photon.MonoBehaviour
 {
     //Variables de Photon para ser agredasa
     public  PhotonView HelPV;
@@ -59,9 +59,9 @@ public class HeliController : MonoBehaviour
         {
             //SceneCamera = GameObject.Find("Main Camera");
             SceneCamera = GameObject.Find("Main Camera");
-            Debug.Log("camara principal " + SceneCamera.tag);
+            //Debug.Log("camara principal " + SceneCamera.tag);
             SceneCamera.SetActive(false);
-            Debug.Log("camara Player " + PlayerCamera.tag);
+            //Debug.Log("camara Player " + PlayerCamera.tag);
             PlayerCamera.SetActive(true);
         }
     }

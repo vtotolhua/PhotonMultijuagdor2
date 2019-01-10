@@ -6187,7 +6187,7 @@ MonoBehaviour:
   reversing: 0
   impactInput: 0
   gearInput: 0
-  PlCam: {fileID: 0}
+  PlCam: {fileID: 1892009566717518}
   KartTest: 0
 --- !u!114 &114519558922146928
 MonoBehaviour:

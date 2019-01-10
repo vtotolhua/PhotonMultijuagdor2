@@ -31125,16 +31125,14 @@ Prefab:
         type: 2}
       propertyPath: ObservedComponents.Array.data[0]
       value: 
-      objectReference: {fileID: 948202260}
+      objectReference: {fileID: 1350220230}
+    - target: {fileID: 1679996952890892, guid: baa206fc152ecf14f89053230d3fa2c8, type: 2}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: baa206fc152ecf14f89053230d3fa2c8, type: 2}
   m_IsPrefabAsset: 0
---- !u!114 &948202260 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114457798561525096, guid: baa206fc152ecf14f89053230d3fa2c8,
-    type: 2}
-  m_PrefabInternal: {fileID: 948202259}
-  m_Script: {fileID: 11500000, guid: 4524a01d9615771478418d3e824f1ecd, type: 3}
 --- !u!1 &953777171
 GameObject:
   m_ObjectHideFlags: 0

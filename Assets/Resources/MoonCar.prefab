@@ -6187,7 +6187,7 @@ MonoBehaviour:
   reversing: 0
   impactInput: 0
   gearInput: 0
-  PlCam: {fileID: 1892009566717518}
+  PlCam: {fileID: 0}
   KartTest: 0
 --- !u!114 &114519558922146928
 MonoBehaviour:
@@ -6250,7 +6250,7 @@ MonoBehaviour:
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 4610509947920016}
+  - {fileID: 114271223883633384}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1

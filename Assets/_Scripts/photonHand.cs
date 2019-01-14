@@ -13,6 +13,7 @@ public class photonHand : MonoBehaviour {
 
     private void Awake() {
         DontDestroyOnLoad(this.transform);
+        PhotonNetwork.automaticallySyncScene = true;
         SceneManager.sceneLoaded += OnSceneFinishedLoading;
     }
 
@@ -30,11 +31,15 @@ public class photonHand : MonoBehaviour {
     
     public void moveScene() {
         //PhotonNetwork.LoadLevel("EscenaUno");
-        PhotonNetwork.LoadLevel(photonB.escena);
+        if (PhotonNetwork.isMasterClient) {
+            PhotonNetwork.LoadLevel(photonB.escena);
+        }
     }
 
     private void OnJoinedRoom()
     {
+        
+
           moveScene();
 //        Debug.Log("Estamos en el room" + photonB.createRoomInput.text);
     }

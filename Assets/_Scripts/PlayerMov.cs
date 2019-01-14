@@ -15,6 +15,8 @@ public class PlayerMov : Photon.MonoBehaviour {
     public GameObject plCam;
 
     private void Awake () {
+        PlphotonView = GetComponent<PhotonView>();
+
         if (!devTesting && PlphotonView.isMine) {
             sceneCam = GameObject.Find("Main Camera");
             sceneCam.SetActive(false);

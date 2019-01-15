@@ -62,7 +62,7 @@ public class PlayerMov : Photon.MonoBehaviour {
 
     private void smoothNetMovement() {
         transform.position = Vector3.Lerp(transform.position, RecibePosicion, Time.deltaTime * 8);
-        transform.rotation = Quaternion.Lerp(transform.rotation, /*RecibeRotacion*/  , Time.deltaTime * 8);
+        transform.rotation = Quaternion.Lerp(transform.rotation, RecibeRotacion  , Time.deltaTime * 8);
     }
 
     private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

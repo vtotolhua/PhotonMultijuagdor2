@@ -9,6 +9,8 @@ public class Bala : Photon.MonoBehaviour {
     public float PuntosDanio = 10.0f;
     private ParticleSystem EfectoBala = null;
 
+
+
     private void Awake()
     {
         Destroy(gameObject, 3.0f);
@@ -17,9 +19,10 @@ public class Bala : Photon.MonoBehaviour {
 
     void Update()
     {
+        
         if (photonViewBala.isMine)
         {
-            transform.Translate(Vector3.forward * FuerzaBala * Time.deltaTime);
+            transform.Translate(Vector3.forward * FuerzaBala * (float)PhotonNetwork.time);
             //Otras líneas para hacer que se mueva la bala, pero no funcionaron bien. 
             //CuerpoBala.velocity = transform.forward * FuerzaBala * Time.deltaTime;
             //gameObject.GetComponent<Rigidbody>().velocity = gameObject.transform.forward * FuerzaBala * Time.deltaTime;    

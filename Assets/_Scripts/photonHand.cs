@@ -16,6 +16,10 @@ public class photonHand : MonoBehaviour {
         PhotonNetwork.automaticallySyncScene = true;
         SceneManager.sceneLoaded += OnSceneFinishedLoading;
 
+#pragma warning disable CS0618 // El tipo o el miembro están obsoletos
+        PhotonNetwork.SetSendingEnabled (1, false);
+#pragma warning restore CS0618 // El tipo o el miembro están obsoletos
+        PhotonNetwork.SetInterestGroups(1, false);
     }
 
     //Esto lo teniamos para dar la opcion al jugador de poner un nombre al room
@@ -82,7 +86,7 @@ public class photonHand : MonoBehaviour {
 
     private void SpawnPlayer ()
     {
-        PhotonNetwork.Instantiate(player.name, player.transform.position, player.transform.rotation, 0);
+        PhotonNetwork.Instantiate(player.name, player.transform.position, player.transform.rotation, 1);
         /*Debug.Log("Num Jugadores " + PhotonNetwork.playerList.Length);
         if (PhotonNetwork.playerName == "jugador1")
         {

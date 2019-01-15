@@ -5,7 +5,7 @@ public class Bala : Photon.MonoBehaviour {
     public float FuerzaBala = 80;
     private Vector3 selfPos;
     private Quaternion selfRot;
-    public PhotonView photonViewBala;
+    private PhotonView photonViewBala;
     public float PuntosDanio = 10.0f;
     private ParticleSystem EfectoBala = null;
 
@@ -13,6 +13,7 @@ public class Bala : Photon.MonoBehaviour {
 
     private void Awake()
     {
+        photonViewBala = GetComponent<PhotonView>();
         Destroy(gameObject, 3.0f);
         EfectoBala = GetComponent<ParticleSystem>();
     }

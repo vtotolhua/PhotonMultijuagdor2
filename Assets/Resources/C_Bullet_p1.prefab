@@ -177,7 +177,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FuerzaBala: 50
-  photonViewBala: {fileID: 114516585735629162}
   PuntosDanio: 10
 --- !u!114 &114516585735629162
 MonoBehaviour:
@@ -199,7 +198,7 @@ MonoBehaviour:
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 114475520463814726}
+  - {fileID: 4195372366011604}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1

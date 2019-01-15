@@ -13,7 +13,9 @@ public class photonHand : MonoBehaviour {
 
     private void Awake() {
         DontDestroyOnLoad(this.transform);
+        PhotonNetwork.automaticallySyncScene = true;
         SceneManager.sceneLoaded += OnSceneFinishedLoading;
+
     }
 
     //Esto lo teniamos para dar la opcion al jugador de poner un nombre al room
@@ -22,6 +24,7 @@ public class photonHand : MonoBehaviour {
     }*/
 
     public void joinOrCreateRoom() {
+
         RoomOptions roomOptions = new RoomOptions();
         roomOptions.MaxPlayers = 4;
         //PhotonNetwork.JoinOrCreateRoom(photonB.createRoomName.text, roomOptions, TypedLobby.Default);
@@ -30,7 +33,9 @@ public class photonHand : MonoBehaviour {
     
     public void moveScene() {
         //PhotonNetwork.LoadLevel("EscenaUno");
-        PhotonNetwork.LoadLevel(photonB.escena);
+        if (PhotonNetwork.isMasterClient) {
+            PhotonNetwork.LoadLevel(photonB.escena);
+        }
     }
 
     private void OnJoinedRoom()

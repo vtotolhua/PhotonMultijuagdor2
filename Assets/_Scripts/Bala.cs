@@ -23,7 +23,7 @@ public class Bala : Photon.MonoBehaviour {
         
         if (photonViewBala.isMine)
         {
-            transform.Translate(Vector3.forward * FuerzaBala * (float)PhotonNetwork.time);
+            transform.Translate(Vector3.forward * FuerzaBala * Time.deltaTime);
             //Otras líneas para hacer que se mueva la bala, pero no funcionaron bien. 
             //CuerpoBala.velocity = transform.forward * FuerzaBala * Time.deltaTime;
             //gameObject.GetComponent<Rigidbody>().velocity = gameObject.transform.forward * FuerzaBala * Time.deltaTime;    
